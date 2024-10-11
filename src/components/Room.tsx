@@ -78,68 +78,88 @@ const Room = (props: Props) => {
         <meshStandardMaterial map={ceilingTexture} side={THREE.DoubleSide} />
       </mesh>
       {allFurnitures.map((furniture, index) => {
-        if (furniture.type === FurnitureType.Basin) {
-          return (
-            <Furniture
-              key={furniture.key}
-              furnitureKey={furniture.key}
-              path={furniture.path}
-              derivePosition={(dimensions) => {
-                return [
-                  walls[3].position[0] + dimensions[0] / 2,
-                  roomDimension.height / 3,
-                  -roomDimension.depth / 4,
-                ];
-              }}
-              scale={[8, 8, 8]}
-            />
-          );
-        } else if (furniture.type === FurnitureType.BasinTap) {
-          return (
-            <BasinTap
-              key={furniture.key}
-              path={furniture.path}
-              scale={[8, 8, 8]}
-              rotation={[0, Math.PI / 2, 0]}
-            />
-          );
-        } else if (furniture.type === FurnitureType.ToiletBowl) {
-          return (
-            <Furniture
-              key={furniture.key}
-              furnitureKey={furniture.key}
-              path={furniture.path}
-              derivePosition={(dimensions) => {
-                return [
-                  roomDimension.length / 4 - dimensions[0] / 2,
-                  dimensions[0] / 2,
-                  walls[1].position[2] + dimensions[2] / 2 + WALL_THICKNESS * 2,
-                ];
-              }}
-              scale={[8, 8, 8]}
-              rotation={[0, -Math.PI / 2, 0]}
-            />
-          );
-        } else if (furniture.type === FurnitureType.Ceiling) {
-          return (
-            <Furniture
-              key={furniture.key}
-              furnitureKey={furniture.key}
-              path={furniture.path}
-              derivePosition={(dimensions) => {
-                return [
-                  walls[2].position[0] - dimensions[0] / 2,
-                  roomDimension.height - dimensions[1],
-                  walls[1].position[2] + dimensions[2] / 2,
-                ];
-              }}
-              scale={[10, 10, 10]}
-              rotation={[0, 0, 0]}
-            />
-          );
+        switch (furniture.type) {
+          case FurnitureType.Basin:
+            return (
+              <Furniture
+                key={furniture.key}
+                furnitureKey={furniture.key}
+                path={furniture.path}
+                derivePosition={(dimensions) => {
+                  return [
+                    walls[3].position[0] + dimensions[0] / 2,
+                    roomDimension.height / 3,
+                    roomDimension.depth / 4,
+                  ];
+                }}
+                scale={[8, 8, 8]}
+              />
+            );
+          case FurnitureType.BasinTap:
+            return (
+              <BasinTap
+                key={furniture.key}
+                path={furniture.path}
+                scale={[8, 8, 8]}
+                rotation={[0, Math.PI / 2, 0]}
+              />
+            );
+          case FurnitureType.ToiletBowl:
+            return (
+              <Furniture
+                key={furniture.key}
+                furnitureKey={furniture.key}
+                path={furniture.path}
+                derivePosition={(dimensions) => {
+                  return [
+                    roomDimension.length / 4 - dimensions[0] / 2,
+                    dimensions[0] / 2,
+                    walls[1].position[2] +
+                      dimensions[2] / 2 +
+                      WALL_THICKNESS * 2,
+                  ];
+                }}
+                scale={[8, 8, 8]}
+                rotation={[0, -Math.PI / 2, 0]}
+              />
+            );
+          case FurnitureType.Shower:
+            return (
+              <Furniture
+                key={furniture.key}
+                furnitureKey={furniture.key}
+                path={furniture.path}
+                derivePosition={(dimensions) => {
+                  return [
+                    walls[3].position[0] + dimensions[0] / 2,
+                    roomDimension.height / 2 - dimensions[1] / 2,
+                    -roomDimension.depth / 4 + dimensions[2] / 2,
+                  ];
+                }}
+                scale={[8, 8, 8]}
+                rotation={[0, Math.PI / 2, 0]}
+              />
+            );
+          case FurnitureType.Ceiling:
+            return (
+              <Furniture
+                key={furniture.key}
+                furnitureKey={furniture.key}
+                path={furniture.path}
+                derivePosition={(dimensions) => {
+                  return [
+                    walls[2].position[0] - dimensions[0] / 2,
+                    roomDimension.height - dimensions[1],
+                    walls[1].position[2] + dimensions[2] / 2,
+                  ];
+                }}
+                scale={[10, 10, 10]}
+                rotation={[0, 0, 0]}
+              />
+            );
+          default:
+            return <primitive key={index} object={furniture} />;
         }
-
-        return <primitive key={index} object={furniture} />;
       })}
     </group>
   );

@@ -94,7 +94,7 @@ export const allCeilingTextures = [
 
 const roomDimensions = {
   depth: 17,
-  height: 15,
+  height: 20,
   length: 18,
 };
 
@@ -135,6 +135,13 @@ const useStore = create<StoreState>((set) => ({
       key: "toilet-ceiling",
       type: FurnitureType.Ceiling,
       path: "/src/assets/models/bto-toilet-ceiling-top-section.glb",
+      dimensions: [0, 0, 0],
+      position: [0, 0, 0],
+    },
+    {
+      key: "shower",
+      type: FurnitureType.Shower,
+      path: "/src/assets/models/bto-default-showerhead.glb",
       dimensions: [0, 0, 0],
       position: [0, 0, 0],
     },

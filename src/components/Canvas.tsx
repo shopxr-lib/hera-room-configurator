@@ -3,11 +3,13 @@ import * as THREE from "three";
 import Room from "./Room";
 import { OrbitControls } from "@react-three/drei";
 import { useState } from "react";
+import useStore from "../store/useStore";
 
 const Canvas: React.FC = () => {
+  const roomDimension = useStore((state) => state.roomDimensions);
   const [cameraPosition, setCameraPosition] = useState<
     [number, number, number]
-  >([0, 7.5, 25]);
+  >([0, roomDimension.height / 2, 25]);
 
   return (
     <ThreeCanvas
@@ -22,7 +24,7 @@ const Canvas: React.FC = () => {
       }}
       camera={{
         position: cameraPosition, // Adjusted camera position to center the room
-        fov: 60,
+        fov: 80,
         near: 0.001,
         far: 1000,
       }}
@@ -46,7 +48,7 @@ const Canvas: React.FC = () => {
 
       <Room cameraPosition={cameraPosition} />
       <CameraTracker setCameraPosition={setCameraPosition} />
-      <OrbitControls target={[0, 7.5, 0]} />
+      <OrbitControls target={[0, roomDimension.height / 2, 0]} />
     </ThreeCanvas>
   );
 };
