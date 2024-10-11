@@ -90,7 +90,7 @@ const Room = (props: Props) => {
         rotation={[-Math.PI / 2, 0, 0]}
       >
         <planeGeometry args={[roomDimension.depth, roomDimension.length]} />
-        <meshStandardMaterial map={ceilingTexture} side={THREE.DoubleSide} />
+        <meshStandardMaterial map={ceilingTexture} side={THREE.BackSide} />
       </mesh>
       {allFurnitures.map((furniture, index) => {
         switch (furniture.type) {
