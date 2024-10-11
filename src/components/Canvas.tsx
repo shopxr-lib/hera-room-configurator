@@ -48,7 +48,10 @@ const Canvas: React.FC = () => {
 
       <Room cameraPosition={cameraPosition} />
       <CameraTracker setCameraPosition={setCameraPosition} />
-      <OrbitControls target={[0, roomDimension.height / 2, 0]} />
+      <OrbitControls
+        target={[0, roomDimension.height / 2, 0]}
+        maxPolarAngle={Math.PI / 2}
+      />
     </ThreeCanvas>
   );
 };
