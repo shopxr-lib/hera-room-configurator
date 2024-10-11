@@ -4,7 +4,8 @@ export enum FurnitureType {
   Basin = 1,
   BasinTap = 2,
   ToiletBowl = 3,
-  Shower = 4,
+  Ceiling = 4,
+  Shower = 5,
 }
 
 export type Furniture = {
@@ -41,14 +42,14 @@ type StoreState = {
 
 export const allFloorsTextures = [
   {
-    key: "ambient-occlussion",
-    name: "Ambient Occlussion",
-    path: "/src/assets/images/wallpaper/bto-floorTile-AmbientOcclusion.webp",
-  },
-  {
     key: "base-color",
     name: "Base Color",
     path: "/src/assets/images/wallpaper/bto-floorTile-BaseColor.webp",
+  },
+  {
+    key: "ambient-occlussion",
+    name: "Ambient Occlussion",
+    path: "/src/assets/images/wallpaper/bto-floorTile-AmbientOcclusion.webp",
   },
   {
     key: "displacement",
@@ -81,9 +82,9 @@ export const allWallTextures = [
 ];
 
 const roomDimensions = {
-  depth: 18,
-  height: 10,
-  length: 17,
+  depth: 17,
+  height: 15,
+  length: 18,
 };
 
 const useStore = create<StoreState>((set) => ({
@@ -113,6 +114,13 @@ const useStore = create<StoreState>((set) => ({
       key: "toilet-bowl",
       type: FurnitureType.ToiletBowl,
       path: "/src/assets/models/HDB-BTO-toiletbowl.glb",
+      dimensions: [0, 0, 0],
+      position: [0, 0, 0],
+    },
+    {
+      key: "toilet-ceiling",
+      type: FurnitureType.Ceiling,
+      path: "/src/assets/models/bto-toilet-ceiling-top-section.glb",
       dimensions: [0, 0, 0],
       position: [0, 0, 0],
     },

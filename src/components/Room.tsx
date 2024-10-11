@@ -6,15 +6,13 @@ import Furniture from "./Furniture";
 import BasinTap from "./BasinTap";
 
 const WALL_THICKNESS = 0.2;
-const WALL_HEIGHT = 10;
-const ROOM_LENGTH = 17;
-const ROOM_DEPTH = 18;
 
 type Props = {
   cameraPosition: [number, number, number];
 };
 
 const Room = (props: Props) => {
+  const roomDimension = useStore((state) => state.roomDimensions);
   const floorTexturePath = useStore((state) => state.floorTexturePath);
   const floorTexture = useLoader(THREE.TextureLoader, floorTexturePath);
 
@@ -30,27 +28,27 @@ const Room = (props: Props) => {
     visible: boolean;
   }[] = [
     {
-      position: [0, WALL_HEIGHT / 2, ROOM_LENGTH / 2],
+      position: [0, roomDimension.height / 2, roomDimension.length / 2],
       rotation: [0, 0, 0],
-      dimensions: [ROOM_DEPTH, WALL_HEIGHT, WALL_THICKNESS],
+      dimensions: [roomDimension.depth, roomDimension.height, WALL_THICKNESS],
       visible: frontVisible,
     }, // Front wall
     {
-      position: [0, WALL_HEIGHT / 2, -ROOM_LENGTH / 2],
+      position: [0, roomDimension.height / 2, -roomDimension.length / 2],
       rotation: [0, 0, 0],
-      dimensions: [ROOM_DEPTH, WALL_HEIGHT, WALL_THICKNESS],
+      dimensions: [roomDimension.depth, roomDimension.height, WALL_THICKNESS],
       visible: backVisible,
     }, // Back wall
     {
-      position: [ROOM_DEPTH / 2, WALL_HEIGHT / 2, 0],
+      position: [roomDimension.depth / 2, roomDimension.height / 2, 0],
       rotation: [0, Math.PI / 2, 0],
-      dimensions: [ROOM_LENGTH, WALL_HEIGHT, WALL_THICKNESS],
+      dimensions: [roomDimension.length, roomDimension.height, WALL_THICKNESS],
       visible: rightVisible,
     }, // Right wall
     {
-      position: [-ROOM_DEPTH / 2, WALL_HEIGHT / 2, 0],
+      position: [-roomDimension.depth / 2, roomDimension.height / 2, 0],
       rotation: [0, Math.PI / 2, 0],
-      dimensions: [ROOM_LENGTH, WALL_HEIGHT, WALL_THICKNESS],
+      dimensions: [roomDimension.length, roomDimension.height, WALL_THICKNESS],
       visible: leftVisible,
     }, // Left wall
   ];
@@ -66,7 +64,7 @@ const Room = (props: Props) => {
         </mesh>
       ))}
       <mesh position={[0, 0, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[ROOM_DEPTH, ROOM_LENGTH]} />
+        <planeGeometry args={[roomDimension.depth, roomDimension.length]} />
         <meshStandardMaterial map={floorTexture} side={THREE.DoubleSide} />
       </mesh>
       {allFurnitures.map((furniture, index) => {
@@ -78,9 +76,9 @@ const Room = (props: Props) => {
               path={furniture.path}
               derivePosition={(dimensions) => {
                 return [
-                  -ROOM_DEPTH / 2 + dimensions[0] / 2,
-                  WALL_HEIGHT / 2,
-                  -ROOM_DEPTH / 4,
+                  walls[3].position[0] + dimensions[0] / 2,
+                  roomDimension.height / 3,
+                  -roomDimension.depth / 4,
                 ];
               }}
               scale={[8, 8, 8]}
@@ -103,13 +101,30 @@ const Room = (props: Props) => {
               path={furniture.path}
               derivePosition={(dimensions) => {
                 return [
-                  ROOM_LENGTH / 4 - dimensions[0] / 2,
+                  roomDimension.length / 4 - dimensions[0] / 2,
                   dimensions[0] / 2,
-                  -ROOM_DEPTH / 2 + dimensions[1] / 2,
+                  walls[1].position[2] + dimensions[2] / 2 + WALL_THICKNESS * 2,
                 ];
               }}
               scale={[8, 8, 8]}
               rotation={[0, -Math.PI / 2, 0]}
+            />
+          );
+        } else if (furniture.type === FurnitureType.Ceiling) {
+          return (
+            <Furniture
+              key={furniture.key}
+              furnitureKey={furniture.key}
+              path={furniture.path}
+              derivePosition={(dimensions) => {
+                return [
+                  walls[2].position[0] - dimensions[0] / 2,
+                  roomDimension.height - dimensions[1],
+                  walls[1].position[2] + dimensions[2] / 2,
+                ];
+              }}
+              scale={[10, 10, 10]}
+              rotation={[0, 0, 0]}
             />
           );
         }

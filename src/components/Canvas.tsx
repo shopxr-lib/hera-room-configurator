@@ -7,7 +7,7 @@ import { useState } from "react";
 const Canvas: React.FC = () => {
   const [cameraPosition, setCameraPosition] = useState<
     [number, number, number]
-  >([0, 10, 25]);
+  >([0, 15, 25]);
 
   return (
     <ThreeCanvas
@@ -46,7 +46,7 @@ const Canvas: React.FC = () => {
 
       <Room cameraPosition={cameraPosition} />
       <CameraTracker setCameraPosition={setCameraPosition} />
-      <OrbitControls target={[0, 5, 0]} />
+      <OrbitControls target={[0, 7.5, 0]} />
     </ThreeCanvas>
   );
 };
