@@ -1,6 +1,9 @@
-import * as Three from "three";
+import { useLoader } from "@react-three/fiber";
+import * as THREE from "three";
 
-const WALL_THICKNESS = 0.2; // Define wall thickness
+import useStore from "../store/useStore";
+
+const WALL_THICKNESS = 0.2;
 const WALL_HEIGHT = 10;
 const ROOM_LENGTH = 17;
 const ROOM_WIDTH = 18;
@@ -10,10 +13,14 @@ type Props = {
 };
 
 const Room = (props: Props) => {
+  const floorTexturePath = useStore((state) => state.floorTexturePath);
+  const floorTexture = useLoader(THREE.TextureLoader, floorTexturePath);
+
+  const wallTexturePath = useStore((state) => state.wallTexturePath);
+  const wallTexture = useLoader(THREE.TextureLoader, wallTexturePath);
+
   const visibleWalls = getVisibleWalls(props.cameraPosition);
-
   const [frontVisible, backVisible, rightVisible, leftVisible] = visibleWalls;
-
   const walls: {
     position: [number, number, number];
     rotation: [number, number, number];
@@ -51,12 +58,12 @@ const Room = (props: Props) => {
       {walls.map((wall, index) => (
         <mesh key={index} position={wall.position} rotation={wall.rotation}>
           <boxGeometry args={wall.dimensions} />
-          <meshStandardMaterial color="#8AC" visible={wall.visible} />
+          <meshStandardMaterial map={wallTexture} visible={wall.visible} />
         </mesh>
       ))}
-      <mesh position={[0, -0.05, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh position={[0, 0, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[ROOM_LENGTH + 1, ROOM_WIDTH - 1]} />
-        <meshStandardMaterial color="#CCC" side={Three.DoubleSide} />
+        <meshStandardMaterial map={floorTexture} side={THREE.DoubleSide} />
       </mesh>
     </group>
   );
