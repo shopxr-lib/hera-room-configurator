@@ -5,7 +5,7 @@ import useStore, { FurnitureType } from "../store/useStore";
 import Furniture from "./Furniture";
 import BasinTap from "./BasinTap";
 
-const WALL_THICKNESS = 0.2;
+const WALL_THICKNESS = 0.75;
 
 type Props = {
   cameraPosition: [number, number, number];
@@ -31,7 +31,11 @@ const Room = (props: Props) => {
     visible: boolean;
   }[] = [
     {
-      position: [0, roomDimension.height / 2, roomDimension.length / 2],
+      position: [
+        0,
+        roomDimension.height / 2,
+        roomDimension.length / 2 + WALL_THICKNESS,
+      ],
       rotation: [0, 0, 0],
       dimensions: [roomDimension.depth, roomDimension.height, WALL_THICKNESS],
       visible: frontVisible,
@@ -43,13 +47,21 @@ const Room = (props: Props) => {
       visible: backVisible,
     }, // Back wall
     {
-      position: [roomDimension.depth / 2, roomDimension.height / 2, 0],
+      position: [
+        roomDimension.depth / 2 + WALL_THICKNESS / 2,
+        roomDimension.height / 2,
+        WALL_THICKNESS / 2,
+      ],
       rotation: [0, Math.PI / 2, 0],
       dimensions: [roomDimension.length, roomDimension.height, WALL_THICKNESS],
       visible: rightVisible,
     }, // Right wall
     {
-      position: [-roomDimension.depth / 2, roomDimension.height / 2, 0],
+      position: [
+        -roomDimension.depth / 2 - WALL_THICKNESS / 2,
+        roomDimension.height / 2,
+        WALL_THICKNESS / 2,
+      ],
       rotation: [0, Math.PI / 2, 0],
       dimensions: [roomDimension.length, roomDimension.height, WALL_THICKNESS],
       visible: leftVisible,
@@ -66,12 +78,15 @@ const Room = (props: Props) => {
           <meshStandardMaterial map={wallTexture} visible={wall.visible} />
         </mesh>
       ))}
-      <mesh position={[0, 0, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh
+        position={[0, 0, WALL_THICKNESS / 2]}
+        rotation={[-Math.PI / 2, 0, 0]}
+      >
         <planeGeometry args={[roomDimension.depth, roomDimension.length]} />
         <meshStandardMaterial map={floorTexture} side={THREE.DoubleSide} />
       </mesh>
       <mesh
-        position={[0, roomDimension.height, 0]}
+        position={[0, roomDimension.height, WALL_THICKNESS / 2]}
         rotation={[-Math.PI / 2, 0, 0]}
       >
         <planeGeometry args={[roomDimension.depth, roomDimension.length]} />
@@ -116,7 +131,7 @@ const Room = (props: Props) => {
                     dimensions[0] / 2,
                     walls[1].position[2] +
                       dimensions[2] / 2 +
-                      WALL_THICKNESS * 2,
+                      WALL_THICKNESS / 2,
                   ];
                 }}
                 scale={[8, 8, 8]}
@@ -148,9 +163,14 @@ const Room = (props: Props) => {
                 path={furniture.path}
                 derivePosition={(dimensions) => {
                   return [
-                    walls[2].position[0] - dimensions[0] / 2,
-                    roomDimension.height - dimensions[1],
-                    walls[1].position[2] + dimensions[2] / 2,
+                    walls[2].position[0] -
+                      dimensions[0] / 2 -
+                      WALL_THICKNESS / 2,
+                    roomDimension.height - dimensions[1] - 0.03,
+                    walls[1].position[2] +
+                      dimensions[2] / 2 +
+                      WALL_THICKNESS / 2 +
+                      0.03,
                   ];
                 }}
                 scale={[10, 10, 10]}
