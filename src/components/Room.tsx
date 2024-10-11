@@ -129,7 +129,7 @@ const Room = (props: Props) => {
               derivePosition={(dimensions) => {
                 return [
                   walls[2].position[0] - dimensions[0] / 2,
-                  roomDimension.height - dimensions[1] - 0.05,
+                  roomDimension.height - dimensions[1],
                   walls[1].position[2] + dimensions[2] / 2,
                 ];
               }}
