@@ -35,12 +35,19 @@ type StoreState = {
   addFurniture: (furniture: Furniture) => void;
   setFurnitureDimensions: (
     key: string,
-    dimensions: [number, number, number]
+    dimensions: [number, number, number],
   ) => void;
   setFurniturePosition: (
     key: string,
-    position: [number, number, number]
+    position: [number, number, number],
   ) => void;
+
+  customizePopUpKey: string;
+  customizeSelected: string[];
+  setCustomizePopUpKey: (key: string) => void;
+  clearCustomizeSelected: () => void;
+  addCustomizeSelected: (key: string, level: number) => void;
+  commitCustomizeSelected: () => void;
 };
 
 export const allFloorsTextures = [
@@ -50,7 +57,7 @@ export const allFloorsTextures = [
     path: "/src/assets/images/wallpaper/bto-floorTile-BaseColor.webp",
   },
   {
-    key: "ambient-occlussion",
+    key: "ambient-occlusion",
     name: "Ambient Occlussion",
     path: "/src/assets/images/wallpaper/bto-floorTile-AmbientOcclusion.webp",
   },
@@ -98,7 +105,7 @@ const roomDimensions = {
   length: 18,
 };
 
-const useStore = create<StoreState>((set) => ({
+const useStore = create<StoreState>((set, get) => ({
   roomDimensions,
   floorTexturePath: allFloorsTextures[0].path,
   setFloorTexturePath: (path) => set({ floorTexturePath: path }),
@@ -172,6 +179,79 @@ const useStore = create<StoreState>((set) => ({
 
       return { furnitures };
     });
+  },
+
+  customizePopUpKey: "",
+  customizeSelected: [],
+  setCustomizePopUpKey: (key) => set({ customizePopUpKey: key }),
+  clearCustomizeSelected: () => set({ customizeSelected: [] }),
+  addCustomizeSelected: (key, level) => {
+    const current = get().customizeSelected;
+    if (level < 0) {
+      return;
+    }
+
+    const cappedLevel = Math.min(level, current.length);
+
+    if (cappedLevel === current.length) {
+      set({ customizeSelected: [...current, key] });
+      return;
+    }
+
+    const newSelected = [...current];
+    newSelected[cappedLevel] = key;
+    set({ customizeSelected: newSelected });
+  },
+  commitCustomizeSelected: () => {
+    const selected = get().customizeSelected;
+    if (selected.length <= 0) {
+      return;
+    }
+
+    switch (selected[0]) {
+      case "wall": {
+        if (selected.length <= 1) {
+          return;
+        }
+        const texture = allWallTextures.find(
+          (texture) => texture.key === selected[1],
+        );
+        if (!texture) {
+          return;
+        }
+
+        set({ wallTexturePath: texture.path });
+        break;
+      }
+      case "ceiling": {
+        if (selected.length <= 1) {
+          return;
+        }
+        const texture = allCeilingTextures.find(
+          (texture) => texture.key === selected[1],
+        );
+        if (!texture) {
+          return;
+        }
+
+        set({ ceilingTexturePath: texture.path });
+        break;
+      }
+
+      case "floor": {
+        if (selected.length <= 1) {
+          return;
+        }
+        const texture = allFloorsTextures.find(
+          (texture) => texture.key === selected[1],
+        );
+        if (!texture) {
+          return;
+        }
+
+        set({ floorTexturePath: texture.path });
+      }
+    }
   },
 }));
 
