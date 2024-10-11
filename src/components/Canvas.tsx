@@ -17,7 +17,6 @@ const Canvas: React.FC = () => {
       }}
       gl={{
         localClippingEnabled: true,
-        // outputEncoding: 3000, // THREE.sRGBEncoding
         toneMapping: THREE.ACESFilmicToneMapping,
         toneMappingExposure: 1.2,
       }}
@@ -29,8 +28,22 @@ const Canvas: React.FC = () => {
       }}
     >
       <color attach="background" args={["#C7C3C6"]} />
+
+      {/* common setting that looks nice enough */}
       <ambientLight intensity={0.5} />
-      <pointLight />
+      <directionalLight
+        position={[10, 10, 10]}
+        intensity={1}
+        castShadow
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
+        shadow-camera-far={50}
+        shadow-camera-left={-10}
+        shadow-camera-right={10}
+        shadow-camera-top={10}
+        shadow-camera-bottom={-10}
+      />
+
       <Room cameraPosition={cameraPosition} />
       <CameraTracker setCameraPosition={setCameraPosition} />
       <OrbitControls target={[0, 5, 0]} />
