@@ -7,7 +7,7 @@ import { useState } from "react";
 const Canvas: React.FC = () => {
   const [cameraPosition, setCameraPosition] = useState<
     [number, number, number]
-  >([0, 15, 25]);
+  >([0, 7.5, 25]);
 
   return (
     <ThreeCanvas
@@ -22,7 +22,7 @@ const Canvas: React.FC = () => {
       }}
       camera={{
         position: cameraPosition, // Adjusted camera position to center the room
-        fov: 45,
+        fov: 60,
         near: 0.001,
         far: 1000,
       }}
