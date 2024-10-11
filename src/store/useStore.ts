@@ -28,6 +28,9 @@ type StoreState = {
   wallTexturePath: string;
   setWallTexturePath: (path: string) => void;
 
+  ceilingTexturePath: string;
+  setCeilingTexturePath: (path: string) => void;
+
   furnitures: Furniture[];
   addFurniture: (furniture: Furniture) => void;
   setFurnitureDimensions: (
@@ -81,6 +84,14 @@ export const allWallTextures = [
   },
 ];
 
+export const allCeilingTextures = [
+  {
+    key: "ceiling",
+    name: "Default",
+    path: "/src/assets/images/wallpaper/bto-ceiling-texture.webp",
+  },
+];
+
 const roomDimensions = {
   depth: 17,
   height: 15,
@@ -94,6 +105,9 @@ const useStore = create<StoreState>((set) => ({
 
   wallTexturePath: allWallTextures[0].path,
   setWallTexturePath: (path) => set({ wallTexturePath: path }),
+
+  ceilingTexturePath: allCeilingTextures[0].path,
+  setCeilingTexturePath: (path) => set({ ceilingTexturePath: path }),
 
   furnitures: [
     {

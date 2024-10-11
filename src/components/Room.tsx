@@ -19,6 +19,9 @@ const Room = (props: Props) => {
   const wallTexturePath = useStore((state) => state.wallTexturePath);
   const wallTexture = useLoader(THREE.TextureLoader, wallTexturePath);
 
+  const ceilingTexturePath = useStore((state) => state.ceilingTexturePath);
+  const ceilingTexture = useLoader(THREE.TextureLoader, ceilingTexturePath);
+
   const visibleWalls = getVisibleWalls(props.cameraPosition);
   const [frontVisible, backVisible, rightVisible, leftVisible] = visibleWalls;
   const walls: {
@@ -66,6 +69,13 @@ const Room = (props: Props) => {
       <mesh position={[0, 0, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[roomDimension.depth, roomDimension.length]} />
         <meshStandardMaterial map={floorTexture} side={THREE.DoubleSide} />
+      </mesh>
+      <mesh
+        position={[0, roomDimension.height, 0]}
+        rotation={[-Math.PI / 2, 0, 0]}
+      >
+        <planeGeometry args={[roomDimension.depth, roomDimension.length]} />
+        <meshStandardMaterial map={ceilingTexture} side={THREE.DoubleSide} />
       </mesh>
       {allFurnitures.map((furniture, index) => {
         if (furniture.type === FurnitureType.Basin) {
@@ -119,7 +129,7 @@ const Room = (props: Props) => {
               derivePosition={(dimensions) => {
                 return [
                   walls[2].position[0] - dimensions[0] / 2,
-                  roomDimension.height - dimensions[1],
+                  roomDimension.height - dimensions[1] - 0.05,
                   walls[1].position[2] + dimensions[2] / 2,
                 ];
               }}
