@@ -106,7 +106,7 @@ const Room = () => {
                 path={furniture.path}
                 derivePosition={(dimensions) => {
                   return [
-                    roomDimension.length / 4 - dimensions[0] / 2,
+                    roomDimension.length / 2.5 - dimensions[0] / 2,
                     dimensions[0] / 2,
                     walls[1].position[2] +
                       dimensions[2] / 2 +
@@ -127,7 +127,7 @@ const Room = () => {
                   return [
                     walls[3].position[0] + dimensions[0] / 2,
                     roomDimension.height / 2 - dimensions[1] / 2,
-                    -roomDimension.depth / 4 + dimensions[2] / 2,
+                    -roomDimension.depth / 2.5 + dimensions[2] / 2,
                   ];
                 }}
                 scale={[8, 8, 8]}
