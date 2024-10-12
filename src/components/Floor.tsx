@@ -6,13 +6,13 @@ import { useTexture } from "@react-three/drei";
 const Floor: React.FC = () => {
   const roomDimension = useStore((state) => state.roomDimensions);
 
-  const texturePath = useStore((state) => state.floorTexturePath);
-  const texture = useTexture(texturePath);
+  const floorTexture = useStore((state) => state.textures.floor);
+  const texture = useTexture(floorTexture.maps!);
 
   return (
     <mesh position={[0, 0, WALL_THICKNESS / 2]} rotation={[-Math.PI / 2, 0, 0]}>
       <planeGeometry args={[roomDimension.depth, roomDimension.length]} />
-      <meshStandardMaterial map={texture} />
+      <meshStandardMaterial {...texture} displacementScale={0.2} />
     </mesh>
   );
 };

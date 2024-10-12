@@ -16,20 +16,31 @@ export type Furniture = {
   position: [number, number, number];
 };
 
+type TextureMap = {
+  baseMap: string;
+  normalMap: string;
+  roughnessMap: string;
+  metallicMap: string;
+  aoMap: string;
+  displacementMap: string;
+};
+
+type TextureObject = {
+  key: string;
+  name: string;
+  path?: string;
+  maps?: TextureMap;
+};
+
+type TextureObjectType = "floor" | "wall" | "ceiling";
+
 type StoreState = {
   roomDimensions: {
     depth: number;
     length: number;
     height: number;
   };
-  floorTexturePath: string;
-  setFloorTexturePath: (path: string) => void;
-
-  wallTexturePath: string;
-  setWallTexturePath: (path: string) => void;
-
-  ceilingTexturePath: string;
-  setCeilingTexturePath: (path: string) => void;
+  textures: { [key in TextureObjectType]: TextureObject };
 
   furnitures: Furniture[];
   addFurniture: (furniture: Furniture) => void;
@@ -54,32 +65,14 @@ export const allFloorsTextures = [
   {
     key: "base-color",
     name: "Base Color",
-    path: "images/wallpaper/bto-floorTile-BaseColor.webp",
-  },
-  {
-    key: "ambient-occlusion",
-    name: "Ambient Occlussion",
-    path: "images/wallpaper/bto-floorTile-AmbientOcclusion.webp",
-  },
-  {
-    key: "displacement",
-    name: "Displacement",
-    path: "images/wallpaper/bto-floorTile-Displacement.webp",
-  },
-  {
-    key: "metallic",
-    name: "Metallic",
-    path: "images/wallpaper/bto-floorTile-Metallic.webp",
-  },
-  {
-    key: "normal",
-    name: "Normal",
-    path: "images/wallpaper/bto-floorTile-Normal.webp",
-  },
-  {
-    key: "roughness",
-    name: "Roughness",
-    path: "images/wallpaper/bto-floorTile-Roughness.webp",
+    maps: {
+      normalMap: "images/wallpaper/bto-floorTile-Normal.webp",
+      roughnessMap: "images/wallpaper/bto-floorTile-Roughness.webp",
+      metallicMap: "images/wallpaper/bto-floorTile-Metallic.webp",
+      aoMap: "images/wallpaper/bto-floorTile-AmbientOcclusion.webp",
+      displacementMap: "images/wallpaper/bto-floorTile-Displacement.webp",
+      baseMap: "images/wallpaper/bto-floorTile-BaseColor.webp",
+    },
   },
 ];
 
@@ -107,14 +100,11 @@ const roomDimensions = {
 
 const useStore = create<StoreState>((set, get) => ({
   roomDimensions,
-  floorTexturePath: allFloorsTextures[0].path,
-  setFloorTexturePath: (path) => set({ floorTexturePath: path }),
-
-  wallTexturePath: allWallTextures[0].path,
-  setWallTexturePath: (path) => set({ wallTexturePath: path }),
-
-  ceilingTexturePath: allCeilingTextures[0].path,
-  setCeilingTexturePath: (path) => set({ ceilingTexturePath: path }),
+  textures: {
+    floor: allFloorsTextures[0],
+    wall: allWallTextures[0],
+    ceiling: allCeilingTextures[0],
+  },
 
   furnitures: [
     {
@@ -220,7 +210,12 @@ const useStore = create<StoreState>((set, get) => ({
           return;
         }
 
-        set({ wallTexturePath: texture.path });
+        set({
+          textures: {
+            ...get().textures,
+            wall: texture,
+          },
+        });
         break;
       }
       case "ceiling": {
@@ -234,7 +229,13 @@ const useStore = create<StoreState>((set, get) => ({
           return;
         }
 
-        set({ ceilingTexturePath: texture.path });
+        set({
+          textures: {
+            ...get().textures,
+            ceiling: texture,
+          },
+        });
+
         break;
       }
 
@@ -249,7 +250,12 @@ const useStore = create<StoreState>((set, get) => ({
           return;
         }
 
-        set({ floorTexturePath: texture.path });
+        set({
+          textures: {
+            ...get().textures,
+            floor: texture,
+          },
+        });
       }
     }
   },

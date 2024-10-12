@@ -147,34 +147,9 @@ const PopUpInfos: Record<string, PopUpInfo> = {
         title: "Floor",
         choices: [
           {
-            key: "ambient-occlusion",
-            title: "Ambient Occlusion",
-            image: "images/wallpaper/bto-floorTile-AmbientOcclusion.webp",
-          },
-          {
             key: "base-color",
             title: "Base Color",
             image: "images/wallpaper/bto-floorTile-BaseColor.webp",
-          },
-          {
-            key: "displacement",
-            title: "Displacement",
-            image: "images/wallpaper/bto-floorTile-Displacement.webp",
-          },
-          {
-            key: "metallic",
-            title: "Metallic",
-            image: "images/wallpaper/bto-floorTile-Metallic.webp",
-          },
-          {
-            key: "normal",
-            title: "Normal",
-            image: "images/wallpaper/bto-floorTile-Normal.webp",
-          },
-          {
-            key: "roughness",
-            title: "Roughness",
-            image: "images/wallpaper/bto-floorTile-Roughness.webp",
           },
         ],
       },

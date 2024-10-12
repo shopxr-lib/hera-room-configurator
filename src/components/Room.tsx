@@ -13,11 +13,14 @@ import { Suspense } from "react";
 const Room = () => {
   const roomDimension = useStore((state) => state.roomDimensions);
 
-  const wallTexturePath = useStore((state) => state.wallTexturePath);
-  const wallTexture = useLoader(THREE.TextureLoader, wallTexturePath);
+  const wallTextureObject = useStore((state) => state.textures.wall);
+  const wallTexture = useLoader(THREE.TextureLoader, wallTextureObject.path!);
 
-  const ceilingTexturePath = useStore((state) => state.ceilingTexturePath);
-  const ceilingTexture = useLoader(THREE.TextureLoader, ceilingTexturePath);
+  const ceilingTextureObject = useStore((state) => state.textures.ceiling);
+  const ceilingTexture = useLoader(
+    THREE.TextureLoader,
+    ceilingTextureObject.path!,
+  );
 
   const walls: WallInfo[] = [
     {
