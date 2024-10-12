@@ -162,23 +162,4 @@ const Room = () => {
   );
 };
 
-// const getVisibleWalls = (cameraPosition: [number, number, number]) => {
-//   const [x, , z] = cameraPosition;
-//   const angle = Math.atan2(x, z);
-
-//   const result = [true, true, true, true]; // All walls visible
-
-//   if (angle >= -Math.PI / 4 && angle < Math.PI / 4) {
-//     result[0] = false; // Front wall invisible
-//   } else if (angle >= Math.PI / 4 && angle < (3 * Math.PI) / 4) {
-//     result[2] = false; // Right wall invisible
-//   } else if (angle >= -(3 * Math.PI) / 4 && angle < -Math.PI / 4) {
-//     result[3] = false; // Left wall invisible
-//   } else {
-//     result[1] = false; // Back wall invisible
-//   }
-
-//   return result;
-// };
-
 export default Room;
