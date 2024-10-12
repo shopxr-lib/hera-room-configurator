@@ -7,11 +7,11 @@ import BasinTap from "./BasinTap";
 import { type WallInfo } from "./types";
 import { WALL_THICKNESS } from "./constants";
 import Wall from "./Wall";
+import Floor from "./Floor";
+import { Suspense } from "react";
 
 const Room = () => {
   const roomDimension = useStore((state) => state.roomDimensions);
-  const floorTexturePath = useStore((state) => state.floorTexturePath);
-  const floorTexture = useLoader(THREE.TextureLoader, floorTexturePath);
 
   const wallTexturePath = useStore((state) => state.wallTexturePath);
   const wallTexture = useLoader(THREE.TextureLoader, wallTexturePath);
@@ -61,13 +61,9 @@ const Room = () => {
       {walls.map((wall, index) => (
         <Wall key={index} wall={wall} texture={wallTexture} side={index} />
       ))}
-      <mesh
-        position={[0, 0, WALL_THICKNESS / 2]}
-        rotation={[-Math.PI / 2, 0, 0]}
-      >
-        <planeGeometry args={[roomDimension.depth, roomDimension.length]} />
-        <meshStandardMaterial map={floorTexture} side={THREE.DoubleSide} />
-      </mesh>
+      <Suspense fallback={null}>
+        <Floor />
+      </Suspense>
       <mesh
         position={[0, roomDimension.height, WALL_THICKNESS / 2]}
         rotation={[-Math.PI / 2, 0, 0]}
