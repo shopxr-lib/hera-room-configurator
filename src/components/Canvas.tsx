@@ -29,7 +29,7 @@ const Canvas: React.FC = () => {
     >
       <color attach="background" args={["#C7C3C6"]} />
 
-      <Environment preset="city" />
+      <Environment files={["hdri/city.hdr"]} />
 
       <Room />
       <OrbitControls
