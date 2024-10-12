@@ -3,6 +3,7 @@ import * as THREE from "three";
 import Room from "./Room";
 import { OrbitControls } from "@react-three/drei";
 import useStore from "../store/useStore";
+import { isMobile } from "react-device-detect";
 
 const Canvas: React.FC = () => {
   const roomDimension = useStore((state) => state.roomDimensions);
@@ -23,6 +24,7 @@ const Canvas: React.FC = () => {
         fov: 80,
         near: 0.001,
         far: 1000,
+        zoom: isMobile ? 0.5 : 1,
       }}
     >
       <color attach="background" args={["#C7C3C6"]} />
