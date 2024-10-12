@@ -54,32 +54,32 @@ export const allFloorsTextures = [
   {
     key: "base-color",
     name: "Base Color",
-    path: "/src/assets/images/wallpaper/bto-floorTile-BaseColor.webp",
+    path: "images/wallpaper/bto-floorTile-BaseColor.webp",
   },
   {
     key: "ambient-occlusion",
     name: "Ambient Occlussion",
-    path: "/src/assets/images/wallpaper/bto-floorTile-AmbientOcclusion.webp",
+    path: "images/wallpaper/bto-floorTile-AmbientOcclusion.webp",
   },
   {
     key: "displacement",
     name: "Displacement",
-    path: "/src/assets/images/wallpaper/bto-floorTile-Displacement.webp",
+    path: "images/wallpaper/bto-floorTile-Displacement.webp",
   },
   {
     key: "metallic",
     name: "Metallic",
-    path: "/src/assets/images/wallpaper/bto-floorTile-Metallic.webp",
+    path: "images/wallpaper/bto-floorTile-Metallic.webp",
   },
   {
     key: "normal",
     name: "Normal",
-    path: "/src/assets/images/wallpaper/bto-floorTile-Normal.webp",
+    path: "images/wallpaper/bto-floorTile-Normal.webp",
   },
   {
     key: "roughness",
     name: "Roughness",
-    path: "/src/assets/images/wallpaper/bto-floorTile-Roughness.webp",
+    path: "images/wallpaper/bto-floorTile-Roughness.webp",
   },
 ];
 
@@ -87,7 +87,7 @@ export const allWallTextures = [
   {
     key: "marble",
     name: "Marble",
-    path: "/src/assets/images/wallpaper/marble-wall.webp",
+    path: "images/wallpaper/marble-wall.webp",
   },
 ];
 
@@ -95,7 +95,7 @@ export const allCeilingTextures = [
   {
     key: "ceiling",
     name: "Default",
-    path: "/src/assets/images/wallpaper/bto-ceiling-texture.webp",
+    path: "images/wallpaper/bto-ceiling-texture.webp",
   },
 ];
 
@@ -120,35 +120,35 @@ const useStore = create<StoreState>((set, get) => ({
     {
       key: "basin",
       type: FurnitureType.Basin,
-      path: "/src/assets/models/bto-basin-620mm.glb",
+      path: "models/bto-basin-620mm.glb",
       dimensions: [0, 0, 0],
       position: [0, 0, 0],
     },
     {
       key: "basin-tap",
       type: FurnitureType.BasinTap,
-      path: "/src/assets/models/bto-default-tap.glb",
+      path: "models/bto-default-tap.glb",
       dimensions: [0, 0, 0],
       position: [0, 0, 0],
     },
     {
       key: "toilet-bowl",
       type: FurnitureType.ToiletBowl,
-      path: "/src/assets/models/HDB-BTO-toiletbowl.glb",
+      path: "models/HDB-BTO-toiletbowl.glb",
       dimensions: [0, 0, 0],
       position: [0, 0, 0],
     },
     {
       key: "toilet-ceiling",
       type: FurnitureType.Ceiling,
-      path: "/src/assets/models/bto-toilet-ceiling-top-section.glb",
+      path: "models/bto-toilet-ceiling-top-section.glb",
       dimensions: [0, 0, 0],
       position: [0, 0, 0],
     },
     {
       key: "shower",
       type: FurnitureType.Shower,
-      path: "/src/assets/models/bto-default-showerhead.glb",
+      path: "models/bto-default-showerhead.glb",
       dimensions: [0, 0, 0],
       position: [0, 0, 0],
     },

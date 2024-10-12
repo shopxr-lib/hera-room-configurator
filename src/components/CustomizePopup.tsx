@@ -127,7 +127,7 @@ const PopUpInfos: Record<string, PopUpInfo> = {
           {
             key: "default",
             title: "Default",
-            image: "/src/assets/images/wallpaper/bto-ceiling-texture.webp",
+            image: "images/wallpaper/bto-ceiling-texture.webp",
           },
         ],
       },
@@ -138,7 +138,7 @@ const PopUpInfos: Record<string, PopUpInfo> = {
           {
             key: "marble",
             title: "Marble",
-            image: "/src/assets/images/wallpaper/marble-wall.webp",
+            image: "images/wallpaper/marble-wall.webp",
           },
         ],
       },
@@ -149,34 +149,32 @@ const PopUpInfos: Record<string, PopUpInfo> = {
           {
             key: "ambient-occlusion",
             title: "Ambient Occlusion",
-            image:
-              "/src/assets/images/wallpaper/bto-floorTile-AmbientOcclusion.webp",
+            image: "images/wallpaper/bto-floorTile-AmbientOcclusion.webp",
           },
           {
             key: "base-color",
             title: "Base Color",
-            image: "/src/assets/images/wallpaper/bto-floorTile-BaseColor.webp",
+            image: "images/wallpaper/bto-floorTile-BaseColor.webp",
           },
           {
             key: "displacement",
             title: "Displacement",
-            image:
-              "/src/assets/images/wallpaper/bto-floorTile-Displacement.webp",
+            image: "images/wallpaper/bto-floorTile-Displacement.webp",
           },
           {
             key: "metallic",
             title: "Metallic",
-            image: "/src/assets/images/wallpaper/bto-floorTile-Metallic.webp",
+            image: "images/wallpaper/bto-floorTile-Metallic.webp",
           },
           {
             key: "normal",
             title: "Normal",
-            image: "/src/assets/images/wallpaper/bto-floorTile-Normal.webp",
+            image: "images/wallpaper/bto-floorTile-Normal.webp",
           },
           {
             key: "roughness",
             title: "Roughness",
-            image: "/src/assets/images/wallpaper/bto-floorTile-Roughness.webp",
+            image: "images/wallpaper/bto-floorTile-Roughness.webp",
           },
         ],
       },

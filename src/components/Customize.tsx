@@ -36,22 +36,22 @@ const Customize: React.FC<Props> = () => {
 const productIcons = [
   {
     key: "wallpaper",
-    src: "/src/assets/images/icons/wallpaper-icon.png",
+    src: "images/icons/wallpaper-icon.png",
     label: "Wallpaper",
   },
   {
     key: "vanitycabinet",
-    src: "/src/assets/images/icons/vanity-cabinet-icon.png",
+    src: "images/icons/vanity-cabinet-icon.png",
     label: "Vanity Cabinet",
   },
   {
     key: "showerscreen",
-    src: "/src/assets/images/icons/shower-screen-icon.png",
+    src: "images/icons/shower-screen-icon.png",
     label: "Shower Screen",
   },
   {
     key: "toiletbowl",
-    src: "/src/assets/images/icons/toiletbowl-icon.png",
+    src: "images/icons/toiletbowl-icon.png",
     label: "Toiletbowl",
   },
 ];
