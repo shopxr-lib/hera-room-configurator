@@ -4,14 +4,11 @@ import * as THREE from "three";
 import useStore, { FurnitureType } from "../store/useStore";
 import Furniture from "./Furniture";
 import BasinTap from "./BasinTap";
+import { type WallInfo } from "./types";
+import { WALL_THICKNESS } from "./constants";
+import Wall from "./Wall";
 
-const WALL_THICKNESS = 0.75;
-
-type Props = {
-  cameraPosition: [number, number, number];
-};
-
-const Room = (props: Props) => {
+const Room = () => {
   const roomDimension = useStore((state) => state.roomDimensions);
   const floorTexturePath = useStore((state) => state.floorTexturePath);
   const floorTexture = useLoader(THREE.TextureLoader, floorTexturePath);
@@ -22,14 +19,7 @@ const Room = (props: Props) => {
   const ceilingTexturePath = useStore((state) => state.ceilingTexturePath);
   const ceilingTexture = useLoader(THREE.TextureLoader, ceilingTexturePath);
 
-  const visibleWalls = getVisibleWalls(props.cameraPosition);
-  const [frontVisible, backVisible, rightVisible, leftVisible] = visibleWalls;
-  const walls: {
-    position: [number, number, number];
-    rotation: [number, number, number];
-    dimensions: [number, number, number];
-    visible: boolean;
-  }[] = [
+  const walls: WallInfo[] = [
     {
       position: [
         0,
@@ -38,13 +28,11 @@ const Room = (props: Props) => {
       ],
       rotation: [0, 0, 0],
       dimensions: [roomDimension.depth, roomDimension.height, WALL_THICKNESS],
-      visible: frontVisible,
     }, // Front wall
     {
       position: [0, roomDimension.height / 2, -roomDimension.length / 2],
       rotation: [0, 0, 0],
       dimensions: [roomDimension.depth, roomDimension.height, WALL_THICKNESS],
-      visible: backVisible,
     }, // Back wall
     {
       position: [
@@ -54,7 +42,6 @@ const Room = (props: Props) => {
       ],
       rotation: [0, Math.PI / 2, 0],
       dimensions: [roomDimension.length, roomDimension.height, WALL_THICKNESS],
-      visible: rightVisible,
     }, // Right wall
     {
       position: [
@@ -64,7 +51,6 @@ const Room = (props: Props) => {
       ],
       rotation: [0, Math.PI / 2, 0],
       dimensions: [roomDimension.length, roomDimension.height, WALL_THICKNESS],
-      visible: leftVisible,
     }, // Left wall
   ];
 
@@ -73,10 +59,7 @@ const Room = (props: Props) => {
   return (
     <group>
       {walls.map((wall, index) => (
-        <mesh key={index} position={wall.position} rotation={wall.rotation}>
-          <boxGeometry args={wall.dimensions} />
-          <meshStandardMaterial map={wallTexture} visible={wall.visible} />
-        </mesh>
+        <Wall key={index} wall={wall} texture={wallTexture} side={index} />
       ))}
       <mesh
         position={[0, 0, WALL_THICKNESS / 2]}
@@ -185,23 +168,23 @@ const Room = (props: Props) => {
   );
 };
 
-const getVisibleWalls = (cameraPosition: [number, number, number]) => {
-  const [x, , z] = cameraPosition;
-  const angle = Math.atan2(x, z);
+// const getVisibleWalls = (cameraPosition: [number, number, number]) => {
+//   const [x, , z] = cameraPosition;
+//   const angle = Math.atan2(x, z);
 
-  const result = [true, true, true, true]; // All walls visible
+//   const result = [true, true, true, true]; // All walls visible
 
-  if (angle >= -Math.PI / 4 && angle < Math.PI / 4) {
-    result[0] = false; // Front wall invisible
-  } else if (angle >= Math.PI / 4 && angle < (3 * Math.PI) / 4) {
-    result[2] = false; // Right wall invisible
-  } else if (angle >= -(3 * Math.PI) / 4 && angle < -Math.PI / 4) {
-    result[3] = false; // Left wall invisible
-  } else {
-    result[1] = false; // Back wall invisible
-  }
+//   if (angle >= -Math.PI / 4 && angle < Math.PI / 4) {
+//     result[0] = false; // Front wall invisible
+//   } else if (angle >= Math.PI / 4 && angle < (3 * Math.PI) / 4) {
+//     result[2] = false; // Right wall invisible
+//   } else if (angle >= -(3 * Math.PI) / 4 && angle < -Math.PI / 4) {
+//     result[3] = false; // Left wall invisible
+//   } else {
+//     result[1] = false; // Back wall invisible
+//   }
 
-  return result;
-};
+//   return result;
+// };
 
 export default Room;

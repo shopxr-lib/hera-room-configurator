@@ -1,15 +1,11 @@
-import { Canvas as ThreeCanvas, useFrame } from "@react-three/fiber";
+import { Canvas as ThreeCanvas } from "@react-three/fiber";
 import * as THREE from "three";
 import Room from "./Room";
 import { OrbitControls } from "@react-three/drei";
-import { useState } from "react";
 import useStore from "../store/useStore";
 
 const Canvas: React.FC = () => {
   const roomDimension = useStore((state) => state.roomDimensions);
-  const [cameraPosition, setCameraPosition] = useState<
-    [number, number, number]
-  >([0, roomDimension.height / 2, 25]);
 
   return (
     <ThreeCanvas
@@ -23,7 +19,7 @@ const Canvas: React.FC = () => {
         toneMappingExposure: 1.2,
       }}
       camera={{
-        position: cameraPosition, // Adjusted camera position to center the room
+        position: [0, roomDimension.height / 2, 25],
         fov: 80,
         near: 0.001,
         far: 1000,
@@ -46,29 +42,13 @@ const Canvas: React.FC = () => {
         shadow-camera-bottom={-10}
       />
 
-      <Room cameraPosition={cameraPosition} />
-      <CameraTracker setCameraPosition={setCameraPosition} />
+      <Room />
       <OrbitControls
         target={[0, roomDimension.height / 2, 0]}
         maxPolarAngle={Math.PI / 2}
       />
     </ThreeCanvas>
   );
-};
-
-const CameraTracker: React.FC<{
-  setCameraPosition: React.Dispatch<
-    React.SetStateAction<[number, number, number]>
-  >;
-}> = ({ setCameraPosition }) => {
-  useFrame(({ camera }) => {
-    setCameraPosition([
-      camera.position.x,
-      camera.position.y,
-      camera.position.z,
-    ]);
-  });
-  return null;
 };
 
 export default Canvas;
