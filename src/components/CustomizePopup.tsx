@@ -27,26 +27,29 @@ const CustomizePopUp: React.FC<Props> = () => {
           <div key={l1.title}>
             <h2>{l1.title}</h2>
             <div className="grid grid-cols-3 gap-4">
-              {l1.choices.map((choice) => (
-                <button
-                  key={choice.key}
-                  className={clsx("rounded-md border border-gray-300 p-1", {
-                    "border-brand border-2":
-                      customizeSelected[0] === choice.key,
-                  })}
-                  onClick={() => addCustomizeSelected(choice.key, 0)}
-                >
-                  {choice.image ? (
-                    <img
-                      className="m-0"
-                      src={choice.image}
-                      alt={choice.title}
-                    />
-                  ) : (
-                    choice.title
-                  )}
-                </button>
-              ))}
+              {l1.choices.map((choice) => {
+                const isSelected = customizeSelected[0] === choice.key;
+                return (
+                  <button
+                    key={choice.key}
+                    className={clsx("rounded-md border-4 p-1", {
+                      "border-brand": isSelected,
+                      "border-transparent": !isSelected,
+                    })}
+                    onClick={() => addCustomizeSelected(choice.key, 0)}
+                  >
+                    {choice.image ? (
+                      <img
+                        className="m-0"
+                        src={choice.image}
+                        alt={choice.title}
+                      />
+                    ) : (
+                      choice.title
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
         ))}
@@ -60,8 +63,9 @@ const CustomizePopUp: React.FC<Props> = () => {
                   return (
                     <button
                       key={choice.key}
-                      className={clsx("rounded-md border", {
-                        "border-brand border-2": selected,
+                      className={clsx("rounded-md border-4", {
+                        "border-brand": selected,
+                        "border-transparent": !selected,
                       })}
                       onClick={() => {
                         addCustomizeSelected(choice.key, 1);
