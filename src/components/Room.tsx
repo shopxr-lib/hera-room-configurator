@@ -142,17 +142,12 @@ const Room = () => {
                 path={furniture.path}
                 derivePosition={(dimensions) => {
                   return [
-                    walls[2].position[0] -
-                      dimensions[0] / 2 -
-                      WALL_THICKNESS / 2,
+                    0,
                     roomDimension.height - dimensions[1] - 0.03,
-                    walls[1].position[2] +
-                      dimensions[2] / 2 +
-                      WALL_THICKNESS / 2 +
-                      0.03,
+                    WALL_THICKNESS / 2,
                   ];
                 }}
-                scale={[10, 10, 10]}
+                scale={[-10, 10, 10]}
                 rotation={[0, 0, 0]}
               />
             );
