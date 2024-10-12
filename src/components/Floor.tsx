@@ -12,7 +12,11 @@ const Floor: React.FC = () => {
   return (
     <mesh position={[0, 0, WALL_THICKNESS / 2]} rotation={[-Math.PI / 2, 0, 0]}>
       <planeGeometry args={[roomDimension.depth, roomDimension.length]} />
-      <meshStandardMaterial {...texture} displacementScale={0.2} />
+      <meshStandardMaterial
+        {...texture}
+        displacementScale={0.2}
+        color={floorTexture.baseColor}
+      />
     </mesh>
   );
 };

@@ -30,6 +30,7 @@ type TextureObject = {
   name: string;
   path?: string;
   maps?: TextureMap;
+  baseColor?: string;
 };
 
 type TextureObjectType = "floor" | "wall" | "ceiling";
@@ -61,7 +62,7 @@ type StoreState = {
   commitCustomizeSelected: () => void;
 };
 
-export const allFloorsTextures = [
+export const allFloorsTextures: TextureObject[] = [
   {
     key: "base-color",
     name: "Base Color",
@@ -73,6 +74,7 @@ export const allFloorsTextures = [
       displacementMap: "images/wallpaper/bto-floorTile-Displacement.webp",
       baseMap: "images/wallpaper/bto-floorTile-BaseColor.webp",
     },
+    baseColor: "#30312f",
   },
 ];
 
