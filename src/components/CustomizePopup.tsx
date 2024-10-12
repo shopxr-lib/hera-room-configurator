@@ -21,7 +21,7 @@ const CustomizePopUp: React.FC<Props> = () => {
   }
 
   return (
-    <div className="fixed left-8 h-[500px] w-[400px] overflow-y-scroll rounded-lg bg-white p-8">
+    <div className="fixed h-[500px] w-[90%] overflow-y-scroll rounded-lg bg-white p-8 sm:left-8 sm:w-[400px]">
       <div className="prose flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <h1 className="m-0">{popUpInfo.title}</h1>

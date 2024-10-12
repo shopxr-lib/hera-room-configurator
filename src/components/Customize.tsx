@@ -9,7 +9,7 @@ const Customize: React.FC<Props> = () => {
   const setCustomizePopUpKey = useStore((state) => state.setCustomizePopUpKey);
 
   return (
-    <div className="fixed bottom-4 left-4 flex items-center space-x-2 rounded-md bg-white p-2">
+    <div className="fixed bottom-4 flex items-center space-x-2 rounded-md bg-white p-2 sm:left-4">
       {productIcons.map((productIcon) => {
         const isSelected = customizePopUpKey === productIcon.key;
         return (
