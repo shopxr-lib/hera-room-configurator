@@ -1,11 +1,13 @@
 import React from "react";
 import clsx from "clsx";
 import useStore from "../store/useStore";
+import { X } from "tabler-icons-react";
 
 type Props = object;
 
 const CustomizePopUp: React.FC<Props> = () => {
   const customizePopUpKey = useStore((state) => state.customizePopUpKey);
+  const setCustomizePopUpKey = useStore((state) => state.setCustomizePopUpKey);
   const customizeSelected = useStore((state) => state.customizeSelected);
 
   const addCustomizeSelected = useStore((state) => state.addCustomizeSelected);
@@ -19,13 +21,16 @@ const CustomizePopUp: React.FC<Props> = () => {
   }
 
   return (
-    <div className="fixed left-8 h-[500px] w-[300px] overflow-y-scroll rounded-lg bg-white p-8">
-      <div className="prose">
-        <h1>{popUpInfo.title}</h1>
+    <div className="fixed left-8 h-[500px] w-[400px] overflow-y-scroll rounded-lg bg-white p-8">
+      <div className="prose flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <h1 className="m-0">{popUpInfo.title}</h1>
+          <X cursor="pointer" onClick={() => setCustomizePopUpKey("")} />
+        </div>
         <p>{popUpInfo.subtitle}</p>
         {popUpInfo.l1.map((l1) => (
           <div key={l1.title}>
-            <h2>{l1.title}</h2>
+            <h2 className="mt-0">{l1.title}</h2>
             <div className="grid grid-cols-3 gap-4">
               {l1.choices.map((choice) => {
                 const isSelected = customizeSelected[0] === choice.key;
@@ -34,7 +39,7 @@ const CustomizePopUp: React.FC<Props> = () => {
                     key={choice.key}
                     className={clsx("rounded-md border-4 p-1", {
                       "border-brand": isSelected,
-                      "border-transparent": !isSelected,
+                      "border-transparent hover:border-gray-100": !isSelected,
                     })}
                     onClick={() => addCustomizeSelected(choice.key, 0)}
                   >
@@ -56,16 +61,15 @@ const CustomizePopUp: React.FC<Props> = () => {
         {customizeSelected.length > 0 &&
           customizeSelected[0] in popUpInfo.l2 && (
             <div>
-              <h2>{popUpInfo.l2[customizeSelected[0]].title}</h2>
-              <div className="grid grid-cols-3 items-center gap-4">
+              <div className="grid grid-cols-3 items-center justify-items-center gap-4">
                 {popUpInfo.l2[customizeSelected[0]].choices.map((choice) => {
                   const selected = customizeSelected[1] === choice.key;
                   return (
                     <button
                       key={choice.key}
-                      className={clsx("rounded-md border-4", {
+                      className={clsx("h-16 w-16 rounded-md border-4", {
                         "border-brand": selected,
-                        "border-transparent": !selected,
+                        "border-transparent hover:border-gray-300": !selected,
                       })}
                       onClick={() => {
                         addCustomizeSelected(choice.key, 1);
@@ -74,7 +78,7 @@ const CustomizePopUp: React.FC<Props> = () => {
                     >
                       {choice.image ? (
                         <img
-                          className="m-0 h-16 w-16"
+                          className="m-0 h-full w-full"
                           src={choice.image}
                           alt={choice.title}
                         />

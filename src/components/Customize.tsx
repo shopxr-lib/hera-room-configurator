@@ -10,20 +10,25 @@ const Customize: React.FC<Props> = () => {
 
   return (
     <div className="fixed bottom-4 left-4 flex items-center space-x-2 rounded-md bg-white p-2">
-      {productIcons.map((productIcon) => (
-        <button
-          key={productIcon.key}
-          className={clsx(
-            "hover:border-brand rounded-md border-2 border-white p-1",
-            {
-              "border-brand": customizePopUpKey === productIcon.key,
-            },
-          )}
-          onClick={() => setCustomizePopUpKey(productIcon.key)}
-        >
-          <img className="h-8" src={productIcon.src} alt={productIcon.label} />
-        </button>
-      ))}
+      {productIcons.map((productIcon) => {
+        const isSelected = customizePopUpKey === productIcon.key;
+        return (
+          <button
+            key={productIcon.key}
+            className={clsx("rounded-md border-2 p-1", {
+              "border-brand": isSelected,
+              "border-transparent hover:border-gray-200": !isSelected,
+            })}
+            onClick={() => setCustomizePopUpKey(productIcon.key)}
+          >
+            <img
+              className="h-8"
+              src={productIcon.src}
+              alt={productIcon.label}
+            />
+          </button>
+        );
+      })}
     </div>
   );
 };
