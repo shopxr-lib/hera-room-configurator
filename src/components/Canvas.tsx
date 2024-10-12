@@ -20,7 +20,7 @@ const Canvas: React.FC = () => {
         toneMappingExposure: 1.2,
       }}
       camera={{
-        position: [0, roomDimension.height / 2, 25],
+        position: [0, roomDimension.height / 2, 2.5],
         fov: 80,
         near: 0.001,
         far: 1000,

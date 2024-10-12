@@ -14,7 +14,7 @@ const Floor: React.FC = () => {
       <planeGeometry args={[roomDimension.depth, roomDimension.length]} />
       <meshStandardMaterial
         {...texture}
-        displacementScale={0.2}
+        displacementScale={0.02}
         color={floorTexture.baseColor}
       />
     </mesh>

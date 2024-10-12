@@ -89,7 +89,6 @@ const Room = () => {
                     roomDimension.depth / 4,
                   ];
                 }}
-                scale={[8, 8, 8]}
               />
             );
           case FurnitureType.BasinTap:
@@ -97,7 +96,6 @@ const Room = () => {
               <BasinTap
                 key={furniture.key}
                 path={furniture.path}
-                scale={[8, 8, 8]}
                 rotation={[0, Math.PI / 2, 0]}
               />
             );
@@ -111,12 +109,9 @@ const Room = () => {
                   return [
                     roomDimension.length / 2.5 - dimensions[0] / 2,
                     dimensions[0] / 2,
-                    walls[1].position[2] +
-                      dimensions[2] / 2 +
-                      WALL_THICKNESS / 2,
+                    walls[1].position[2] + dimensions[2] / 2 + WALL_THICKNESS,
                   ];
                 }}
-                scale={[8, 8, 8]}
                 rotation={[0, -Math.PI / 2, 0]}
               />
             );
@@ -129,11 +124,10 @@ const Room = () => {
                 derivePosition={(dimensions) => {
                   return [
                     walls[3].position[0] + dimensions[0] / 2,
-                    roomDimension.height / 2 - dimensions[1] / 2,
+                    roomDimension.height / 2 - dimensions[1] / 2 - 0.2,
                     -roomDimension.depth / 2.5 + dimensions[2] / 2,
                   ];
                 }}
-                scale={[8, 8, 8]}
                 rotation={[0, Math.PI / 2, 0]}
               />
             );
@@ -146,12 +140,11 @@ const Room = () => {
                 derivePosition={(dimensions) => {
                   return [
                     0,
-                    roomDimension.height - dimensions[1] - 0.03,
+                    roomDimension.height - dimensions[1],
                     WALL_THICKNESS / 2,
                   ];
                 }}
-                scale={[-10, 10, 10]}
-                rotation={[0, 0, 0]}
+                scale={[-1, 1, 1]}
               />
             );
           default:

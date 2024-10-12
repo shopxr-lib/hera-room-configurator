@@ -1,1 +1,1 @@
-export const WALL_THICKNESS = 0.75;
+export const WALL_THICKNESS = 0.075;

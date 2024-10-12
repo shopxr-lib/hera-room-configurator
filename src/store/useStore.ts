@@ -95,9 +95,9 @@ export const allCeilingTextures = [
 ];
 
 const roomDimensions = {
-  depth: 17,
-  height: 20,
-  length: 18,
+  depth: 1.7,
+  height: 2.0,
+  length: 1.8,
 };
 
 const useStore = create<StoreState>((set, get) => ({
