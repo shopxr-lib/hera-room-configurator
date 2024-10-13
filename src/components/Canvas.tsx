@@ -24,7 +24,7 @@ const Canvas: React.FC = () => {
         fov: 80,
         near: 0.001,
         far: 1000,
-        zoom: isMobile ? 0.5 : 1,
+        zoom: isMobile ? 0.6 : 1,
       }}
     >
       <color attach="background" args={["#C7C3C6"]} />
