@@ -38,7 +38,7 @@ type TextureObjectType = "floor" | "wall" | "ceiling";
 type PackageType = "default" | "enhanced" | "premium" | "luxury";
 
 type StoreState = {
-  package?: PackageType;
+  package: PackageType | "";
   setPackage: (p: string) => void;
   roomDimensions: {
     depth: number;
@@ -106,6 +106,7 @@ const roomDimensions = {
 
 const useStore = create<StoreState>((set, get) => ({
   roomDimensions,
+  package: "",
   setPackage: (p: string) => set({ package: p as PackageType }),
   textures: {
     floor: allFloorsTextures[0],

@@ -10,3 +10,5 @@ export const packageChoices = [
   },
   { value: "luxury", label: "Luxury (Coming Soon)", disabled: true },
 ];
+
+export const packageTiers = ["default", "enhanced", "premium", "luxury"];
