@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import useStore from "../store/useStore";
-import { X } from "tabler-icons-react";
+import { IconX } from "@tabler/icons-react";
 
 type Props = object;
 
@@ -25,7 +25,7 @@ const CustomizePopUp: React.FC<Props> = () => {
       <div className="prose flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <h1 className="m-0">{popUpInfo.title}</h1>
-          <X cursor="pointer" onClick={() => setCustomizePopUpKey("")} />
+          <IconX cursor="pointer" onClick={() => setCustomizePopUpKey("")} />
         </div>
         <p>{popUpInfo.subtitle}</p>
         {popUpInfo.l1.map((l1) => (
