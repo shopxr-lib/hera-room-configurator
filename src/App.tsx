@@ -7,6 +7,7 @@ import CustomizePopUp from "./components/CustomizePopup";
 import { MantineProvider } from "@mantine/core";
 import PackagePopUp from "./components/PackagePopUp";
 import PackageChooserFloating from "./components/PackageChooserFloating";
+import ShoppingCartFloating from "./components/ShoppingCartFloating";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
       <CustomizePopUp />
       <PackagePopUp />
       <PackageChooserFloating />
+      <ShoppingCartFloating />
     </MantineProvider>
   );
 }
