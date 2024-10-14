@@ -1,7 +1,7 @@
 import React from "react";
 import useStore from "../store/useStore";
 import clsx from "clsx";
-import { packageTiers } from "./constants";
+import { isPackageTierSufficient } from "./constants";
 
 type Props = object;
 
@@ -70,21 +70,5 @@ const productIcons = [
     minPackageTier: "enhanced",
   },
 ];
-
-const isPackageTierSufficient = (
-  minPackageTier: string,
-  selectedPackage: string,
-) => {
-  for (let i = 0; i < packageTiers.length; i++) {
-    if (packageTiers[i] === minPackageTier) {
-      return true;
-    }
-    if (packageTiers[i] === selectedPackage) {
-      return false;
-    }
-  }
-
-  return false;
-};
 
 export default Customize;
