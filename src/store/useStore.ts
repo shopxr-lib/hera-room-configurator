@@ -3,9 +3,10 @@ import { create } from "zustand";
 export enum FurnitureType {
   Basin = 1,
   BasinTap = 2,
-  ToiletBowl = 3,
-  Ceiling = 4,
-  Shower = 5,
+  BasinCounterTop = 3,
+  ToiletBowl = 4,
+  Ceiling = 5,
+  Shower = 6,
 }
 
 export type Furniture = {
@@ -14,22 +15,26 @@ export type Furniture = {
   path: string;
   dimensions: [number, number, number];
   position: [number, number, number];
+  minPackageTier: PackageType;
+  textureMap?: Partial<TextureMap>;
+  variants?: Record<string, Furniture[]>;
 };
 
-type TextureMap = {
+export type TextureMap = {
   baseMap: string;
   normalMap: string;
   roughnessMap: string;
   metallicMap: string;
   aoMap: string;
   displacementMap: string;
+  map: string; // diffuse map
 };
 
 type TextureObject = {
   key: string;
   name: string;
   path?: string;
-  maps?: TextureMap;
+  maps?: Partial<TextureMap>;
   baseColor?: string;
 };
 
@@ -121,6 +126,7 @@ const useStore = create<StoreState>((set, get) => ({
       path: "models/bto-basin-620mm.glb",
       dimensions: [0, 0, 0],
       position: [0, 0, 0],
+      minPackageTier: "default",
     },
     {
       key: "basin-tap",
@@ -128,6 +134,20 @@ const useStore = create<StoreState>((set, get) => ({
       path: "models/bto-default-tap.glb",
       dimensions: [0, 0, 0],
       position: [0, 0, 0],
+      minPackageTier: "default",
+    },
+    {
+      key: "counter-top-600-black",
+      type: FurnitureType.BasinCounterTop,
+      path: "models/Quartzstone-countertop-lightcolour-600mm.glb",
+      dimensions: [0, 0, 0],
+      position: [0, 0, 0],
+      minPackageTier: "enhanced",
+      textureMap: {
+        map: "images/maps/black-quartz-600mm-countertop-diffused.webp",
+        roughnessMap:
+          "images/maps/black-quartz-600mm-countertop-roughness.webp",
+      },
     },
     {
       key: "toilet-bowl",
@@ -135,6 +155,7 @@ const useStore = create<StoreState>((set, get) => ({
       path: "models/HDB-BTO-toiletbowl.glb",
       dimensions: [0, 0, 0],
       position: [0, 0, 0],
+      minPackageTier: "default",
     },
     {
       key: "toilet-ceiling",
@@ -142,6 +163,7 @@ const useStore = create<StoreState>((set, get) => ({
       path: "models/bto-toilet-ceiling-top-section.glb",
       dimensions: [0, 0, 0],
       position: [0, 0, 0],
+      minPackageTier: "default",
     },
     {
       key: "shower",
@@ -149,6 +171,7 @@ const useStore = create<StoreState>((set, get) => ({
       path: "models/bto-default-showerhead.glb",
       dimensions: [0, 0, 0],
       position: [0, 0, 0],
+      minPackageTier: "default",
     },
   ],
   addFurniture: (furniture) =>
