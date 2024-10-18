@@ -36,11 +36,8 @@ const BasinCounterTop: React.FC<Props> = ({
 
   const [position, setPosition] = useState<[number, number, number]>([0, 0, 0]);
 
-  const furnitures = useStore((state) => state.furnitures);
-
-  const basinFurniture = furnitures.find(
-    (furniture) => furniture.type === FurnitureType.Basin,
-  );
+  const furnitureMap = useStore((state) => state.furnitureMap);
+  const basinFurniture = furnitureMap[FurnitureType.Basin];
 
   useEffect(() => {
     if (!ref.current) {

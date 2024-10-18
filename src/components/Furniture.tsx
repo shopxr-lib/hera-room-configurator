@@ -2,22 +2,22 @@ import React, { useEffect, useRef, useState } from "react";
 import { useGLTF } from "@react-three/drei";
 
 import * as THREE from "three";
-import useStore from "../store/useStore";
+import useStore, { FurnitureType } from "../store/useStore";
 
 interface Props {
-  furnitureKey: string;
   path: string;
   scale?: [number, number, number];
   rotation?: [number, number, number];
+  type: FurnitureType;
 
   derivePosition: (
-    dimension: [number, number, number]
+    dimension: [number, number, number],
   ) => [number, number, number];
 }
 
 const Furniture: React.FC<Props> = ({
-  furnitureKey,
   path,
+  type,
   derivePosition,
   ...props
 }) => {
@@ -28,7 +28,7 @@ const Furniture: React.FC<Props> = ({
     0, 0, 0,
   ]);
   const setFurnitureDimensions = useStore(
-    (state) => state.setFurnitureDimensions
+    (state) => state.setFurnitureDimensions,
   );
   const setFurniturePosition = useStore((state) => state.setFurniturePosition);
 
@@ -38,14 +38,14 @@ const Furniture: React.FC<Props> = ({
       const size = new THREE.Vector3();
       box.getSize(size);
       setDimensions([size.x, size.y, size.z]);
-      setFurnitureDimensions(furnitureKey, [size.x, size.y, size.z]);
+      setFurnitureDimensions(type, [size.x, size.y, size.z]);
     }
-  }, [model.scene, setDimensions, setFurnitureDimensions, furnitureKey]);
+  }, [model.scene, setDimensions, setFurnitureDimensions, type]);
 
   const position = derivePosition(dimensions);
 
   useEffect(() => {
-    setFurniturePosition(furnitureKey, position);
+    setFurniturePosition(type, position);
   }, []);
 
   return (

@@ -58,7 +58,7 @@ const Room = () => {
     }, // Left wall
   ];
 
-  const allFurnitures = useStore((state) => state.furnitures);
+  const furnitureMap = useStore((state) => state.furnitureMap);
   const selectedPackage = useStore((state) => state.package);
 
   return (
@@ -76,7 +76,7 @@ const Room = () => {
         <planeGeometry args={[roomDimension.depth, roomDimension.length]} />
         <meshStandardMaterial map={ceilingTexture} side={THREE.BackSide} />
       </mesh>
-      {allFurnitures
+      {Object.values(furnitureMap)
         .filter((furniture) =>
           isPackageTierSufficient(furniture.minPackageTier, selectedPackage),
         )
@@ -86,7 +86,7 @@ const Room = () => {
               return (
                 <Furniture
                   key={furniture.key}
-                  furnitureKey={furniture.key}
+                  type={furniture.type}
                   path={furniture.path}
                   derivePosition={(dimensions) => {
                     return [
@@ -118,7 +118,7 @@ const Room = () => {
               return (
                 <Furniture
                   key={furniture.key}
-                  furnitureKey={furniture.key}
+                  type={furniture.type}
                   path={furniture.path}
                   derivePosition={(dimensions) => {
                     return [
@@ -134,7 +134,7 @@ const Room = () => {
               return (
                 <Furniture
                   key={furniture.key}
-                  furnitureKey={furniture.key}
+                  type={furniture.type}
                   path={furniture.path}
                   derivePosition={(dimensions) => {
                     return [
@@ -150,7 +150,7 @@ const Room = () => {
               return (
                 <Furniture
                   key={furniture.key}
-                  furnitureKey={furniture.key}
+                  type={furniture.type}
                   path={furniture.path}
                   derivePosition={(dimensions) => {
                     return [

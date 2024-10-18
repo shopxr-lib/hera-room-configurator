@@ -7,6 +7,7 @@ export enum FurnitureType {
   ToiletBowl = 4,
   Ceiling = 5,
   Shower = 6,
+  VanityCabinet = 7,
 }
 
 export type Furniture = {
@@ -52,14 +53,13 @@ type StoreState = {
   };
   textures: { [key in TextureObjectType]: TextureObject };
 
-  furnitures: Furniture[];
-  addFurniture: (furniture: Furniture) => void;
+  furnitureMap: Partial<Record<FurnitureType, Furniture>>;
   setFurnitureDimensions: (
-    key: string,
+    type: FurnitureType,
     dimensions: [number, number, number],
   ) => void;
   setFurniturePosition: (
-    key: string,
+    type: FurnitureType,
     position: [number, number, number],
   ) => void;
 
@@ -103,6 +103,58 @@ export const allCeilingTextures = [
   },
 ];
 
+export const allFurnitures: Furniture[] = [
+  // Counter Top
+  {
+    key: "counter-top-black-600mm",
+    type: FurnitureType.BasinCounterTop,
+    path: "models/Quartzstone-countertop-lightcolour-600mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/black-quartz-600mm-countertop-diffused.webp",
+      roughnessMap: "images/maps/black-quartz-600mm-countertop-roughness.webp",
+    },
+  },
+  {
+    key: "counter-top-white-600mm",
+    type: FurnitureType.BasinCounterTop,
+    path: "models/Quartzstone-countertop-lightcolour-600mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/white-quartz-600mm-countertop-diffused.webp",
+      roughnessMap: "images/maps/white-quartz-600mm-countertop-roughness.webp",
+    },
+  },
+  {
+    key: "counter-top-black-800mm",
+    type: FurnitureType.BasinCounterTop,
+    path: "models/Quartzstone-countertop-lightcolour-800mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/black-quartz-800mm-countertop-diffused.webp",
+      roughnessMap: "images/maps/black-quartz-800mm-countertop-roughness.webp",
+    },
+  },
+  {
+    key: "counter-top-white-800mm",
+    type: FurnitureType.BasinCounterTop,
+    path: "models/Quartzstone-countertop-lightcolour-800mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/white-quartz-800mm-countertop-diffused.webp",
+      roughnessMap: "images/maps/white-quartz-800mm-countertop-roughness.webp",
+    },
+  },
+];
+
 const roomDimensions = {
   depth: 1.7,
   height: 2.0,
@@ -119,8 +171,8 @@ const useStore = create<StoreState>((set, get) => ({
     ceiling: allCeilingTextures[0],
   },
 
-  furnitures: [
-    {
+  furnitureMap: {
+    [FurnitureType.Basin]: {
       key: "basin",
       type: FurnitureType.Basin,
       path: "models/bto-basin-620mm.glb",
@@ -128,7 +180,7 @@ const useStore = create<StoreState>((set, get) => ({
       position: [0, 0, 0],
       minPackageTier: "default",
     },
-    {
+    [FurnitureType.BasinTap]: {
       key: "basin-tap",
       type: FurnitureType.BasinTap,
       path: "models/bto-default-tap.glb",
@@ -136,20 +188,7 @@ const useStore = create<StoreState>((set, get) => ({
       position: [0, 0, 0],
       minPackageTier: "default",
     },
-    {
-      key: "counter-top-600-black",
-      type: FurnitureType.BasinCounterTop,
-      path: "models/Quartzstone-countertop-lightcolour-600mm.glb",
-      dimensions: [0, 0, 0],
-      position: [0, 0, 0],
-      minPackageTier: "enhanced",
-      textureMap: {
-        map: "images/maps/black-quartz-600mm-countertop-diffused.webp",
-        roughnessMap:
-          "images/maps/black-quartz-600mm-countertop-roughness.webp",
-      },
-    },
-    {
+    [FurnitureType.ToiletBowl]: {
       key: "toilet-bowl",
       type: FurnitureType.ToiletBowl,
       path: "models/HDB-BTO-toiletbowl.glb",
@@ -157,7 +196,7 @@ const useStore = create<StoreState>((set, get) => ({
       position: [0, 0, 0],
       minPackageTier: "default",
     },
-    {
+    [FurnitureType.Ceiling]: {
       key: "toilet-ceiling",
       type: FurnitureType.Ceiling,
       path: "models/bto-toilet-ceiling-top-section.glb",
@@ -165,7 +204,7 @@ const useStore = create<StoreState>((set, get) => ({
       position: [0, 0, 0],
       minPackageTier: "default",
     },
-    {
+    [FurnitureType.Shower]: {
       key: "shower",
       type: FurnitureType.Shower,
       path: "models/bto-default-showerhead.glb",
@@ -173,32 +212,34 @@ const useStore = create<StoreState>((set, get) => ({
       position: [0, 0, 0],
       minPackageTier: "default",
     },
-  ],
-  addFurniture: (furniture) =>
-    set((state) => ({ furnitures: [...state.furnitures, furniture] })),
+  },
 
-  setFurnitureDimensions: (key, dimensions) => {
+  setFurnitureDimensions: (type, dimensions) => {
     set((state) => {
-      const furnitures = state.furnitures.map((furniture) => {
-        if (furniture.key === key) {
-          return { ...furniture, dimensions };
-        }
-        return furniture;
-      });
-
-      return { furnitures };
+      return {
+        ...state,
+        furnitureMap: {
+          ...state.furnitureMap,
+          [type]: {
+            ...state.furnitureMap[type],
+            dimensions,
+          },
+        },
+      };
     });
   },
-  setFurniturePosition(key, position) {
+  setFurniturePosition: (type, position) => {
     set((state) => {
-      const furnitures = state.furnitures.map((furniture) => {
-        if (furniture.key === key) {
-          return { ...furniture, position };
-        }
-        return furniture;
-      });
-
-      return { furnitures };
+      return {
+        ...state,
+        furnitureMap: {
+          ...state.furnitureMap,
+          [type]: {
+            ...state.furnitureMap[type],
+            position,
+          },
+        },
+      };
     });
   },
 
@@ -229,64 +270,106 @@ const useStore = create<StoreState>((set, get) => ({
       return;
     }
 
-    switch (selected[0]) {
-      case "wall": {
-        if (selected.length <= 1) {
-          return;
-        }
-        const texture = allWallTextures.find(
-          (texture) => texture.key === selected[1],
-        );
-        if (!texture) {
-          return;
-        }
+    const popupKey = get().customizePopUpKey;
 
-        set({
-          textures: {
-            ...get().textures,
-            wall: texture,
-          },
-        });
+    switch (popupKey) {
+      case "wallpaper": {
+        switch (selected[0]) {
+          case "wall": {
+            if (selected.length <= 1) {
+              return;
+            }
+            const texture = allWallTextures.find(
+              (texture) => texture.key === selected[1],
+            );
+            if (!texture) {
+              return;
+            }
+
+            set({
+              textures: {
+                ...get().textures,
+                wall: texture,
+              },
+            });
+            break;
+          }
+          case "ceiling": {
+            if (selected.length <= 1) {
+              return;
+            }
+            const texture = allCeilingTextures.find(
+              (texture) => texture.key === selected[1],
+            );
+            if (!texture) {
+              return;
+            }
+
+            set({
+              textures: {
+                ...get().textures,
+                ceiling: texture,
+              },
+            });
+
+            break;
+          }
+
+          case "floor": {
+            if (selected.length <= 1) {
+              return;
+            }
+            const texture = allFloorsTextures.find(
+              (texture) => texture.key === selected[1],
+            );
+            if (!texture) {
+              return;
+            }
+
+            set({
+              textures: {
+                ...get().textures,
+                floor: texture,
+              },
+            });
+          }
+        }
         break;
       }
-      case "ceiling": {
-        if (selected.length <= 1) {
-          return;
-        }
-        const texture = allCeilingTextures.find(
-          (texture) => texture.key === selected[1],
+
+      case "vanitycabinet": {
+        const size = selected[0];
+        const cabinetVariant = selected[1];
+        const counterTopVariant = selected[2];
+
+        const counterTopKey = `counter-top-${counterTopVariant}-${size}mm`;
+        const vanityCabinetKey = `vanity-cabinet-${cabinetVariant}${size}`;
+
+        const vanityCabinet = allFurnitures.find(
+          (furniture) => furniture.key === vanityCabinetKey,
         );
-        if (!texture) {
-          return;
+        if (vanityCabinet) {
+          set({
+            furnitureMap: {
+              ...get().furnitureMap,
+              [FurnitureType.VanityCabinet]: vanityCabinet,
+            },
+          });
         }
 
-        set({
-          textures: {
-            ...get().textures,
-            ceiling: texture,
-          },
-        });
+        const countertop = allFurnitures.find(
+          (furniture) => furniture.key === counterTopKey,
+        );
+        if (countertop) {
+          set({
+            furnitureMap: {
+              ...get().furnitureMap,
+              [FurnitureType.BasinCounterTop]: countertop,
+            },
+          });
+        }
 
         break;
-      }
-
-      case "floor": {
-        if (selected.length <= 1) {
-          return;
-        }
-        const texture = allFloorsTextures.find(
-          (texture) => texture.key === selected[1],
-        );
-        if (!texture) {
-          return;
-        }
-
-        set({
-          textures: {
-            ...get().textures,
-            floor: texture,
-          },
-        });
       }
     }
   },
