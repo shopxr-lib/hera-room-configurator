@@ -11,6 +11,7 @@ import Floor from "./Floor";
 import BasinCounterTop from "./BasinCounterTop";
 import { Suspense } from "react";
 import VanityCabinet from "./VanityCabinet";
+import Basin from "./Basin";
 
 const Room = () => {
   const roomDimension = useStore((state) => state.roomDimensions);
@@ -84,20 +85,7 @@ const Room = () => {
         .map((furniture, index) => {
           switch (furniture.type) {
             case FurnitureType.Basin:
-              return (
-                <Furniture
-                  key={furniture.key}
-                  type={furniture.type}
-                  path={furniture.path}
-                  derivePosition={(dimensions) => {
-                    return [
-                      walls[3].position[0] + dimensions[0] / 2,
-                      roomDimension.height / 3,
-                      roomDimension.depth / 4,
-                    ];
-                  }}
-                />
-              );
+              return <Basin key={furniture.key} path={furniture.path} />;
             case FurnitureType.BasinTap:
               return (
                 <BasinTap

@@ -32,8 +32,6 @@ const VanityCabinet = ({ path, textureMap, ...props }: Props) => {
   const furnitureMap = useStore((state) => state.furnitureMap);
   const basinFurniture = furnitureMap[FurnitureType.Basin];
 
-  console.log(basinFurniture);
-
   useEffect(() => {
     if (!ref.current) {
       return;
@@ -46,7 +44,7 @@ const VanityCabinet = ({ path, textureMap, ...props }: Props) => {
     const size = new THREE.Vector3();
     box.getSize(size);
     setPosition([
-      basinFurniture.position[0] + size.x / 2 + 0.03,
+      basinFurniture.position[0] + 0.01,
       basinFurniture.position[1] - size.y - 0.08,
       basinFurniture.position[2],
     ]);

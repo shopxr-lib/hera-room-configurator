@@ -51,7 +51,7 @@ const BasinCounterTop: React.FC<Props> = ({
     const size = new THREE.Vector3();
     box.getSize(size);
     setPosition([
-      basinFurniture.position[0] + size.x / 2 + 0.03,
+      basinFurniture.position[0] + 0.01,
       basinFurniture.position[1] -
         basinFurniture.dimensions[1] / 2 -
         size.y / 2,

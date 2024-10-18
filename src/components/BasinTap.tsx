@@ -35,7 +35,10 @@ const BasinTap: React.FC<Props> = ({ path: basePath, ...props }) => {
     const size = new THREE.Vector3();
     box.getSize(size);
     setPosition([
-      basinFurniture.position[0] + size.x / 2 - 0.01,
+      basinFurniture.position[0] -
+        basinFurniture.dimensions[0] / 2 +
+        size.x / 2 -
+        0.01,
       basinFurniture.position[1] + basinFurniture.dimensions[1],
       basinFurniture.position[2],
     ]);
