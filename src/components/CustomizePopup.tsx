@@ -50,6 +50,7 @@ const CustomizePopUp: React.FC<Props> = () => {
                     className={clsx("rounded-md border-4 p-1", {
                       "border-brand": isSelected,
                       "border-transparent hover:border-gray-100": !isSelected,
+                      "h-24 w-24": choice.image,
                     })}
                     onClick={() => addCustomizeSelected(choice.key, 0)}
                   >
@@ -83,6 +84,7 @@ const CustomizePopUp: React.FC<Props> = () => {
                       className={clsx("rounded-md border-4", {
                         "border-brand": selected,
                         "border-transparent hover:border-gray-300": !selected,
+                        "h-24 w-24": choice.image,
                       })}
                       onClick={() => {
                         addCustomizeSelected(choice.productKey, 1);
@@ -115,6 +117,7 @@ const CustomizePopUp: React.FC<Props> = () => {
                     className={clsx("rounded-md border-4 p-2", {
                       "border-brand": selected,
                       "border-transparent hover:border-gray-300": !selected,
+                      "h-24 w-24": choice.image,
                     })}
                     onClick={() => {
                       addCustomizeSelected(choice.productKey, 2);
@@ -135,7 +138,12 @@ const CustomizePopUp: React.FC<Props> = () => {
             </div>
           </div>
         )}
-        <Button onClick={() => commitCustomizeSelected()}>Add Furniture</Button>
+        <Button
+          onClick={() => commitCustomizeSelected()}
+          disabled={customizeSelected.length < (popUpInfo.minSelected ?? 1)}
+        >
+          {popUpInfo.buttonText ?? "Save"}
+        </Button>
       </div>
     </div>
   );
@@ -145,6 +153,8 @@ const PopUpInfos: Record<string, PopUpInfo> = {
   wallpaper: {
     title: "Wallpaper",
     subtitle: "Choose a wallpaper for your bathroom",
+    buttonText: "Save",
+    minSelected: 2,
     l1: [
       {
         title: "Surface",
@@ -207,6 +217,8 @@ const PopUpInfos: Record<string, PopUpInfo> = {
     title: "Vanity Cabinet Set",
     subtitle:
       "Mix & Match your very own vanity cabinet set & add it into the scene.",
+    buttonText: "Add Furniture",
+    minSelected: 3,
     l1: [
       {
         title: "Sizes",
@@ -364,6 +376,8 @@ const PopUpInfos: Record<string, PopUpInfo> = {
 type PopUpInfo = {
   title: string;
   subtitle?: string;
+  buttonText?: string;
+  minSelected?: number;
   l1: {
     title: string;
     choices: {
