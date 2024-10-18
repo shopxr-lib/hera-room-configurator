@@ -85,80 +85,92 @@ const Room = () => {
         .map((furniture, index) => {
           switch (furniture.type) {
             case FurnitureType.Basin:
-              return <Basin key={furniture.key} path={furniture.path} />;
+              return (
+                <Suspense key={furniture.key}>
+                  <Basin path={furniture.path} />
+                </Suspense>
+              );
             case FurnitureType.BasinTap:
               return (
-                <BasinTap
-                  key={furniture.key}
-                  path={furniture.path}
-                  rotation={[0, Math.PI / 2, 0]}
-                />
+                <Suspense key={furniture.key}>
+                  <BasinTap
+                    path={furniture.path}
+                    rotation={[0, Math.PI / 2, 0]}
+                  />
+                </Suspense>
               );
             case FurnitureType.BasinCounterTop:
               return (
-                <BasinCounterTop
-                  key={furniture.key}
-                  path={furniture.path}
-                  rotation={[0, Math.PI / 2, 0]}
-                  textureMap={furniture.textureMap}
-                />
+                <Suspense key={furniture.key}>
+                  <BasinCounterTop
+                    path={furniture.path}
+                    rotation={[0, Math.PI / 2, 0]}
+                    textureMap={furniture.textureMap}
+                  />
+                </Suspense>
               );
             case FurnitureType.VanityCabinet:
               return (
-                <VanityCabinet
-                  key={furniture.key}
-                  path={furniture.path}
-                  textureMap={furniture.textureMap}
-                  rotation={[0, Math.PI / 2, 0]}
-                />
+                <Suspense>
+                  <VanityCabinet
+                    path={furniture.path}
+                    textureMap={furniture.textureMap}
+                    rotation={[0, Math.PI / 2, 0]}
+                  />
+                </Suspense>
               );
             case FurnitureType.ToiletBowl:
               return (
-                <Furniture
-                  key={furniture.key}
-                  type={furniture.type}
-                  path={furniture.path}
-                  derivePosition={(dimensions) => {
-                    return [
-                      roomDimension.length / 2.5 - dimensions[0] / 2,
-                      dimensions[0] / 2,
-                      walls[1].position[2] + dimensions[2] / 2 + WALL_THICKNESS,
-                    ];
-                  }}
-                  rotation={[0, -Math.PI / 2, 0]}
-                />
+                <Suspense key={furniture.key}>
+                  <Furniture
+                    type={furniture.type}
+                    path={furniture.path}
+                    derivePosition={(dimensions) => {
+                      return [
+                        roomDimension.length / 2.5 - dimensions[0] / 2,
+                        dimensions[0] / 2,
+                        walls[1].position[2] +
+                          dimensions[2] / 2 +
+                          WALL_THICKNESS,
+                      ];
+                    }}
+                    rotation={[0, -Math.PI / 2, 0]}
+                  />
+                </Suspense>
               );
             case FurnitureType.Shower:
               return (
-                <Furniture
-                  key={furniture.key}
-                  type={furniture.type}
-                  path={furniture.path}
-                  derivePosition={(dimensions) => {
-                    return [
-                      walls[3].position[0] + dimensions[0] / 2,
-                      roomDimension.height / 2 - dimensions[1] / 2 - 0.2,
-                      -roomDimension.depth / 2.5 + dimensions[2] / 2,
-                    ];
-                  }}
-                  rotation={[0, Math.PI / 2, 0]}
-                />
+                <Suspense key={furniture.key}>
+                  <Furniture
+                    type={furniture.type}
+                    path={furniture.path}
+                    derivePosition={(dimensions) => {
+                      return [
+                        walls[3].position[0] + dimensions[0] / 2,
+                        roomDimension.height / 2 - dimensions[1] / 2 - 0.2,
+                        -roomDimension.depth / 2.5 + dimensions[2] / 2,
+                      ];
+                    }}
+                    rotation={[0, Math.PI / 2, 0]}
+                  />
+                </Suspense>
               );
             case FurnitureType.Ceiling:
               return (
-                <Furniture
-                  key={furniture.key}
-                  type={furniture.type}
-                  path={furniture.path}
-                  derivePosition={(dimensions) => {
-                    return [
-                      0,
-                      roomDimension.height - dimensions[1],
-                      WALL_THICKNESS / 2,
-                    ];
-                  }}
-                  scale={[-1, 1, 1]}
-                />
+                <Suspense key={furniture.key}>
+                  <Furniture
+                    type={furniture.type}
+                    path={furniture.path}
+                    derivePosition={(dimensions) => {
+                      return [
+                        0,
+                        roomDimension.height - dimensions[1],
+                        WALL_THICKNESS / 2,
+                      ];
+                    }}
+                    scale={[-1, 1, 1]}
+                  />
+                </Suspense>
               );
             default:
               return <primitive key={index} object={furniture} />;
