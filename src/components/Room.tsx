@@ -10,6 +10,7 @@ import Wall from "./Wall";
 import Floor from "./Floor";
 import BasinCounterTop from "./BasinCounterTop";
 import { Suspense } from "react";
+import VanityCabinet from "./VanityCabinet";
 
 const Room = () => {
   const roomDimension = useStore((state) => state.roomDimensions);
@@ -112,6 +113,15 @@ const Room = () => {
                   path={furniture.path}
                   rotation={[0, Math.PI / 2, 0]}
                   textureMap={furniture.textureMap}
+                />
+              );
+            case FurnitureType.VanityCabinet:
+              return (
+                <VanityCabinet
+                  key={furniture.key}
+                  path={furniture.path}
+                  textureMap={furniture.textureMap}
+                  rotation={[0, Math.PI / 2, 0]}
                 />
               );
             case FurnitureType.ToiletBowl:

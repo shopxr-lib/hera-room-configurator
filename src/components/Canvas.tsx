@@ -34,7 +34,7 @@ const Canvas: React.FC = () => {
       <Room />
       <OrbitControls
         target={[0, roomDimension.height / 2, 0]}
-        maxPolarAngle={Math.PI / 2}
+        maxPolarAngle={Math.PI}
       />
     </ThreeCanvas>
   );

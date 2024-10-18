@@ -21,6 +21,8 @@ const BasinTap: React.FC<Props> = ({ path: basePath, ...props }) => {
 
   const basinFurniture = furnitureMap[FurnitureType.Basin];
 
+  console.log(basinFurniture);
+
   useEffect(() => {
     if (!ref.current) {
       return;

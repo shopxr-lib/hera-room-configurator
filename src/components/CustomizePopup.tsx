@@ -241,7 +241,7 @@ const PopUpInfos: Record<string, PopUpInfo> = {
           },
           {
             key: "vanity-brownstone-600mm",
-            productKey: "brownstone",
+            productKey: "brown-stone",
             title: "Brownstone",
             image: "images/vanity-cabinet/brownstone-600mm.webp",
           },
@@ -289,7 +289,7 @@ const PopUpInfos: Record<string, PopUpInfo> = {
           },
           {
             key: "vanity-brownstone-800mm",
-            productKey: "brownstone",
+            productKey: "brown-stone",
             title: "Brownstone",
             image: "images/vanity-cabinet/brownstone-800mm.webp",
           },
@@ -347,13 +347,13 @@ const PopUpInfos: Record<string, PopUpInfo> = {
             key: "counter-top-black-800mm",
             productKey: "black",
             title: "Black",
-            image: "images/maps/black-quartz-800mm-countertop-diffused.webp",
+            image: "images/counter-top/countertop-black.webp",
           },
           {
             key: "counter-top-white-800mm",
             productKey: "white",
             title: "White",
-            image: "images/maps/white-quartz-800mm-countertop-diffused.webp",
+            image: "images/counter-top/countertop-white.webp",
           },
         ],
       },

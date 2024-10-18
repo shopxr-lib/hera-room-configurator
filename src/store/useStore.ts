@@ -153,6 +153,162 @@ export const allFurnitures: Furniture[] = [
       roughnessMap: "images/maps/white-quartz-800mm-countertop-roughness.webp",
     },
   },
+
+  // Vanity Cabinet
+  {
+    key: "vanity-cabinet-birch-600mm",
+    type: FurnitureType.VanityCabinet,
+    path: "models/vanity-cabinet/Vanity-Cabinet-600mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/vanity-cabinet/Birch.png",
+    },
+  },
+  {
+    key: "vanity-cabinet-blanco-600mm",
+    type: FurnitureType.VanityCabinet,
+    path: "models/vanity-cabinet/Vanity-Cabinet-600mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/vanity-cabinet/Blanco.png",
+    },
+  },
+  {
+    key: "vanity-cabinet-brown-stone-600mm",
+    type: FurnitureType.VanityCabinet,
+    path: "models/vanity-cabinet/Vanity-Cabinet-600mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/vanity-cabinet/Brown-Stone.png",
+    },
+  },
+  {
+    key: "vanity-cabinet-charcoal-ash-600mm",
+    type: FurnitureType.VanityCabinet,
+    path: "models/vanity-cabinet/Vanity-Cabinet-600mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/vanity-cabinet/Charcoal-Ash.png",
+    },
+  },
+  {
+    key: "vanity-cabinet-matt-black-600mm",
+    type: FurnitureType.VanityCabinet,
+    path: "models/vanity-cabinet/Vanity-Cabinet-600mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/vanity-cabinet/Matt-Black.png",
+    },
+  },
+  {
+    key: "vanity-cabinet-graphite-600mm",
+    type: FurnitureType.VanityCabinet,
+    path: "models/vanity-cabinet/Vanity-Cabinet-600mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/vanity-cabinet/Graphite.png",
+    },
+  },
+  {
+    key: "vanity-cabinet-oakwood-600mm",
+    type: FurnitureType.VanityCabinet,
+    path: "models/vanity-cabinet/Vanity-Cabinet-600mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/vanity-cabinet/Oakwood.png",
+    },
+  },
+  {
+    key: "vanity-cabinet-birch-800mm",
+    type: FurnitureType.VanityCabinet,
+    path: "models/vanity-cabinet/Vanity-Cabinet-800mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/vanity-cabinet/Birch.png",
+    },
+  },
+  {
+    key: "vanity-cabinet-blanco-800mm",
+    type: FurnitureType.VanityCabinet,
+    path: "models/vanity-cabinet/Vanity-Cabinet-800mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/vanity-cabinet/Blanco.png",
+    },
+  },
+  {
+    key: "vanity-cabinet-brown-stone-800mm",
+    type: FurnitureType.VanityCabinet,
+    path: "models/vanity-cabinet/Vanity-Cabinet-800mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/vanity-cabinet/Brown-Stone.png",
+    },
+  },
+  {
+    key: "vanity-cabinet-charcoal-ash-800mm",
+    type: FurnitureType.VanityCabinet,
+    path: "models/vanity-cabinet/Vanity-Cabinet-800mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/vanity-cabinet/Charcoal-Ash.png",
+    },
+  },
+  {
+    key: "vanity-cabinet-graphite-800mm",
+    type: FurnitureType.VanityCabinet,
+    path: "models/vanity-cabinet/Vanity-Cabinet-800mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/vanity-cabinet/Graphite.png",
+    },
+  },
+  {
+    key: "vanity-cabinet-matt-black-800mm",
+    type: FurnitureType.VanityCabinet,
+    path: "models/vanity-cabinet/Vanity-Cabinet-800mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/vanity-cabinet/Matt-Black.png",
+    },
+  },
+  {
+    key: "vanity-cabinet-oakwood-800mm",
+    type: FurnitureType.VanityCabinet,
+    path: "models/vanity-cabinet/Vanity-Cabinet-800mm.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "enhanced",
+    textureMap: {
+      map: "images/maps/vanity-cabinet/Oakwood.png",
+    },
+  },
 ];
 
 const roomDimensions = {
@@ -343,7 +499,7 @@ const useStore = create<StoreState>((set, get) => ({
         const counterTopVariant = selected[2];
 
         const counterTopKey = `counter-top-${counterTopVariant}-${size}mm`;
-        const vanityCabinetKey = `vanity-cabinet-${cabinetVariant}${size}`;
+        const vanityCabinetKey = `vanity-cabinet-${cabinetVariant}-${size}mm`;
 
         const vanityCabinet = allFurnitures.find(
           (furniture) => furniture.key === vanityCabinetKey,
