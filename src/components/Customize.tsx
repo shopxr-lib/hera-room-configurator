@@ -1,7 +1,7 @@
 import React from "react";
 import useStore from "../store/useStore";
 import clsx from "clsx";
-import { isPackageTierSufficient } from "./constants";
+import { isPackageTierSufficient } from "../lib/utils";
 
 type Props = object;
 
