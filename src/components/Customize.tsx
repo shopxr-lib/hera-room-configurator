@@ -13,13 +13,8 @@ const Customize: React.FC<Props> = () => {
   return (
     <div className="fixed bottom-4 flex items-center space-x-2 rounded-md bg-white p-2 sm:left-4">
       {productIcons
-        .filter(
-          (productIcon) =>
-            selectedPackage === "" ||
-            isPackageTierSufficient(
-              productIcon.minPackageTier,
-              selectedPackage,
-            ),
+        .filter((productIcon) =>
+          isPackageTierSufficient(productIcon.minPackageTier, selectedPackage),
         )
         .map((productIcon) => {
           const isSelected = customizePopUpKey === productIcon.key;
