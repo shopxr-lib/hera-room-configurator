@@ -1,5 +1,6 @@
 import "./App.css";
 import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 import Canvas from "./components/Canvas";
 import Customize from "./components/Customize";
 import CustomizePopUp from "./components/CustomizePopup";
@@ -8,6 +9,7 @@ import { MantineProvider } from "@mantine/core";
 import PackagePopUp from "./components/PackagePopUp";
 import PackageChooserFloating from "./components/PackageChooserFloating";
 import ShoppingCartFloating from "./components/ShoppingCartFloating";
+import { Notifications } from "@mantine/notifications";
 
 function App() {
   return (
@@ -30,6 +32,7 @@ function App() {
         primaryColor: "brand",
       }}
     >
+      <Notifications />
       <Canvas />
       <Customize />
       <CustomizePopUp />

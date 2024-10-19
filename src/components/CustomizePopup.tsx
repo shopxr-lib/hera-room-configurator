@@ -1,12 +1,10 @@
 import React from "react";
 import clsx from "clsx";
 import useStore from "../store/useStore";
-import { IconX } from "@tabler/icons-react";
-import { Button } from "@mantine/core";
+import { Button, Modal, Title } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 
-type Props = object;
-
-const CustomizePopUp: React.FC<Props> = () => {
+const CustomizePopUp: React.FC = () => {
   const customizePopUpKey = useStore((state) => state.customizePopUpKey);
   const setCustomizePopUpKey = useStore((state) => state.setCustomizePopUpKey);
   const customizeSelected = useStore((state) => state.customizeSelected);
@@ -24,23 +22,26 @@ const CustomizePopUp: React.FC<Props> = () => {
     return null;
   }
 
+  const handleClose = () => {
+    setCustomizePopUpKey("");
+    clearCustomizeSelected();
+  };
+
   return (
-    <div className="fixed h-[500px] w-[90%] overflow-y-scroll rounded-lg bg-white p-8 sm:left-8 sm:w-[400px]">
-      <div className="prose flex flex-col gap-4">
-        <div className="flex items-center justify-between">
-          <h1 className="m-0">{popUpInfo.title}</h1>
-          <IconX
-            cursor="pointer"
-            onClick={() => {
-              setCustomizePopUpKey("");
-              clearCustomizeSelected();
-            }}
-          />
-        </div>
+    <Modal
+      opened={!!popUpInfo}
+      onClose={handleClose}
+      title={<Title order={2}>{popUpInfo?.title}</Title>}
+      centered
+      classNames={{
+        content: "sm:left-4 sm:absolute sm:w-[400px]",
+      }}
+    >
+      <div className="flex flex-col gap-8">
         <p>{popUpInfo.subtitle}</p>
         {popUpInfo.l1.map((l1) => (
-          <div key={l1.title}>
-            <h2 className="mt-0">{l1.title}</h2>
+          <div key={l1.title} className="flex flex-col gap-4">
+            <Title order={3}>{l1.title}</Title>
             <div className="grid grid-cols-3 gap-4">
               {l1.choices.map((choice) => {
                 const isSelected = customizeSelected[0] === choice.key;
@@ -71,10 +72,10 @@ const CustomizePopUp: React.FC<Props> = () => {
         ))}
         {customizeSelected.length > 0 &&
           customizeSelected[0] in popUpInfo.l2 && (
-            <div>
-              <h2 className="mt-0">
+            <div className="flex flex-col gap-4">
+              <Title order={3}>
                 {popUpInfo.l2[customizeSelected[0]].title}
-              </h2>
+              </Title>
               <div className="grid grid-cols-3 items-center justify-items-center gap-4">
                 {popUpInfo.l2[customizeSelected[0]].choices.map((choice) => {
                   const selected = customizeSelected[1] === choice.productKey;
@@ -106,8 +107,8 @@ const CustomizePopUp: React.FC<Props> = () => {
             </div>
           )}
         {popUpInfo.l3 && customizeSelected[0] in popUpInfo.l3 && (
-          <div>
-            <h2 className="mt-0">{popUpInfo.l3[customizeSelected[0]].title}</h2>
+          <div className="flex flex-col gap-4">
+            <Title order={3}>{popUpInfo.l3[customizeSelected[0]].title}</Title>
             <div className="grid grid-cols-3 items-center justify-items-center gap-4">
               {popUpInfo.l3[customizeSelected[0]].choices.map((choice) => {
                 const selected = customizeSelected[2] === choice.productKey;
@@ -139,13 +140,21 @@ const CustomizePopUp: React.FC<Props> = () => {
           </div>
         )}
         <Button
-          onClick={() => commitCustomizeSelected()}
+          onClick={() => {
+            commitCustomizeSelected();
+            notifications.show({
+              title: "Success",
+              message: "Your changes have been saved",
+              position: "top-right",
+            });
+            handleClose();
+          }}
           disabled={customizeSelected.length < (popUpInfo.minSelected ?? 1)}
         >
           {popUpInfo.buttonText ?? "Save"}
         </Button>
       </div>
-    </div>
+    </Modal>
   );
 };
 
