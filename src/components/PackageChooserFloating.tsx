@@ -5,6 +5,9 @@ import { packageChoices } from "./constants";
 const PackagePopUpFloating: React.FC = () => {
   const selectedPackage = useStore((state) => state.package);
   const setSelectedPackage = useStore((state) => state.setPackage);
+  const setFurnitureMapByTier = useStore(
+    (state) => state.setFurnitureMapByTier,
+  );
   const clearCart = useStore((state) => state.clearCart);
 
   if (!selectedPackage) {
@@ -21,6 +24,7 @@ const PackagePopUpFloating: React.FC = () => {
         onChange={(_, option) => {
           setSelectedPackage(option.value);
           clearCart();
+          setFurnitureMapByTier(option.value);
         }}
       ></Select>
     </div>

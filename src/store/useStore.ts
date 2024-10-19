@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { isPackageTierSufficient } from "../lib/utils";
 
 export enum FurnitureType {
   Basin = 1,
@@ -64,6 +65,7 @@ type StoreState = {
   clearCart: () => void;
 
   furnitureMap: Partial<Record<FurnitureType, Furniture>>;
+  setFurnitureMapByTier: (minPackageTier: string) => void;
   setFurnitureDimensions: (
     type: FurnitureType,
     dimensions: [number, number, number],
@@ -437,6 +439,25 @@ const useStore = create<StoreState>((set, get) => ({
       position: [0, 0, 0],
       minPackageTier: "default",
     },
+  },
+  setFurnitureMapByTier: (minPackageTier: string) => {
+    const funitureMap = get().furnitureMap;
+    const filteredFurnitures = Object.values(funitureMap).filter((value) => {
+      return isPackageTierSufficient(value.minPackageTier, minPackageTier);
+    });
+    const newFurnitureMap = filteredFurnitures.reduce<
+      Partial<Record<FurnitureType, Furniture>>
+    >((acc, curr) => {
+      acc[curr.type] = curr;
+      return acc;
+    }, {});
+
+    set((state) => {
+      return {
+        ...state,
+        furnitureMap: newFurnitureMap,
+      };
+    });
   },
 
   setFurnitureDimensions: (type, dimensions) => {
