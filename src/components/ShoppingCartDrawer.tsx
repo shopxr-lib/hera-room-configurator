@@ -1,4 +1,4 @@
-import { Divider, Modal, Title } from "@mantine/core";
+import { Divider, Drawer, Title } from "@mantine/core";
 import useStore from "../store/useStore";
 import { startingPrices } from "./constants";
 
@@ -16,14 +16,12 @@ const ShoppingCartPopUp = () => {
   );
 
   return (
-    <Modal
+    <Drawer
       opened={opened}
       onClose={close}
-      classNames={{
-        content: "sm:right-8 sm:absolute sm:w-[500px]",
-        title: "text-xl font-bold",
-      }}
-      title={"Cart"}
+      title={<p className="text-xl font-bold">Your Cart</p>}
+      position="right"
+      padding="xl"
     >
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
@@ -68,7 +66,7 @@ const ShoppingCartPopUp = () => {
           </div>
         </div>
       </div>
-    </Modal>
+    </Drawer>
   );
 };
 
