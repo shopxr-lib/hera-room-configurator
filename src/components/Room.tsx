@@ -111,7 +111,7 @@ const Room = () => {
               );
             case FurnitureType.VanityCabinet:
               return (
-                <Suspense>
+                <Suspense key={furniture.key}>
                   <VanityCabinet
                     path={furniture.path}
                     textureMap={furniture.textureMap}

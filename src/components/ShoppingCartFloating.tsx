@@ -3,8 +3,12 @@ import useStore from "../store/useStore";
 
 const ShoppingCartFloating = () => {
   const selectedPackage = useStore((state) => state.package);
+  const setModal = useStore((state) => state.setModal);
   return (
-    <div className="md-4 bg-brand-800 fixed right-4 top-4 flex items-center gap-2 rounded-full p-4">
+    <button
+      className="md-4 fixed right-4 top-4 flex items-center gap-2 rounded-full bg-brand-800 p-4"
+      onClick={() => setModal("shoppingCart", true)}
+    >
       {selectedPackage !== "" && (
         <p className="text-white">
           {Intl.NumberFormat("en-US", {
@@ -15,7 +19,7 @@ const ShoppingCartFloating = () => {
         </p>
       )}
       <IconShoppingCartFilled size={24} className="text-white" />
-    </div>
+    </button>
   );
 };
 

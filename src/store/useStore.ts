@@ -13,6 +13,7 @@ export enum FurnitureType {
 export type Furniture = {
   key: string;
   type: FurnitureType;
+  name: string;
   path: string;
   dimensions: [number, number, number];
   position: [number, number, number];
@@ -41,6 +42,8 @@ type TextureObject = {
 
 type TextureObjectType = "floor" | "wall" | "ceiling";
 
+type ModalType = "shoppingCart";
+
 type PackageType = "default" | "enhanced" | "premium" | "luxury";
 
 type StoreState = {
@@ -52,6 +55,13 @@ type StoreState = {
     height: number;
   };
   textures: { [key in TextureObjectType]: TextureObject };
+
+  modals: Record<ModalType, boolean>;
+  setModal: (modal: ModalType, open: boolean) => void;
+  cartItems: Furniture[];
+  addToCart: (id: string) => void;
+  removeFromCart: (type: FurnitureType) => void;
+  clearCart: () => void;
 
   furnitureMap: Partial<Record<FurnitureType, Furniture>>;
   setFurnitureDimensions: (
@@ -107,6 +117,7 @@ export const allFurnitures: Furniture[] = [
   // Counter Top
   {
     key: "counter-top-black-600mm",
+    name: "Black Quartz Countertop 600mm",
     type: FurnitureType.BasinCounterTop,
     path: "models/Quartzstone-countertop-lightcolour-600mm.glb",
     dimensions: [0, 0, 0],
@@ -119,6 +130,7 @@ export const allFurnitures: Furniture[] = [
   },
   {
     key: "counter-top-white-600mm",
+    name: "White Quartz Countertop 600mm",
     type: FurnitureType.BasinCounterTop,
     path: "models/Quartzstone-countertop-lightcolour-600mm.glb",
     dimensions: [0, 0, 0],
@@ -131,6 +143,7 @@ export const allFurnitures: Furniture[] = [
   },
   {
     key: "counter-top-black-800mm",
+    name: "Black Quartz Countertop 800mm",
     type: FurnitureType.BasinCounterTop,
     path: "models/Quartzstone-countertop-lightcolour-800mm.glb",
     dimensions: [0, 0, 0],
@@ -143,6 +156,7 @@ export const allFurnitures: Furniture[] = [
   },
   {
     key: "counter-top-white-800mm",
+    name: "White Quartz Countertop 800mm",
     type: FurnitureType.BasinCounterTop,
     path: "models/Quartzstone-countertop-lightcolour-800mm.glb",
     dimensions: [0, 0, 0],
@@ -157,6 +171,7 @@ export const allFurnitures: Furniture[] = [
   // Vanity Cabinet
   {
     key: "vanity-cabinet-birch-600mm",
+    name: "Birch Vanity Cabinet 600mm",
     type: FurnitureType.VanityCabinet,
     path: "models/vanity-cabinet/Vanity-Cabinet-600mm.glb",
     dimensions: [0, 0, 0],
@@ -168,6 +183,7 @@ export const allFurnitures: Furniture[] = [
   },
   {
     key: "vanity-cabinet-blanco-600mm",
+    name: "Blanco Vanity Cabinet 600mm",
     type: FurnitureType.VanityCabinet,
     path: "models/vanity-cabinet/Vanity-Cabinet-600mm.glb",
     dimensions: [0, 0, 0],
@@ -179,6 +195,7 @@ export const allFurnitures: Furniture[] = [
   },
   {
     key: "vanity-cabinet-brown-stone-600mm",
+    name: "Brown Stone Vanity Cabinet 600mm",
     type: FurnitureType.VanityCabinet,
     path: "models/vanity-cabinet/Vanity-Cabinet-600mm.glb",
     dimensions: [0, 0, 0],
@@ -190,6 +207,7 @@ export const allFurnitures: Furniture[] = [
   },
   {
     key: "vanity-cabinet-charcoal-ash-600mm",
+    name: "Charcoal Ash Vanity Cabinet 600mm",
     type: FurnitureType.VanityCabinet,
     path: "models/vanity-cabinet/Vanity-Cabinet-600mm.glb",
     dimensions: [0, 0, 0],
@@ -201,6 +219,7 @@ export const allFurnitures: Furniture[] = [
   },
   {
     key: "vanity-cabinet-matt-black-600mm",
+    name: "Matt Black Vanity Cabinet 600mm",
     type: FurnitureType.VanityCabinet,
     path: "models/vanity-cabinet/Vanity-Cabinet-600mm.glb",
     dimensions: [0, 0, 0],
@@ -212,6 +231,7 @@ export const allFurnitures: Furniture[] = [
   },
   {
     key: "vanity-cabinet-graphite-600mm",
+    name: "Graphite Vanity Cabinet 600mm",
     type: FurnitureType.VanityCabinet,
     path: "models/vanity-cabinet/Vanity-Cabinet-600mm.glb",
     dimensions: [0, 0, 0],
@@ -223,6 +243,7 @@ export const allFurnitures: Furniture[] = [
   },
   {
     key: "vanity-cabinet-oakwood-600mm",
+    name: "Oakwood Vanity Cabinet 600mm",
     type: FurnitureType.VanityCabinet,
     path: "models/vanity-cabinet/Vanity-Cabinet-600mm.glb",
     dimensions: [0, 0, 0],
@@ -234,6 +255,7 @@ export const allFurnitures: Furniture[] = [
   },
   {
     key: "vanity-cabinet-birch-800mm",
+    name: "Birch Vanity Cabinet 800mm",
     type: FurnitureType.VanityCabinet,
     path: "models/vanity-cabinet/Vanity-Cabinet-800mm.glb",
     dimensions: [0, 0, 0],
@@ -245,6 +267,7 @@ export const allFurnitures: Furniture[] = [
   },
   {
     key: "vanity-cabinet-blanco-800mm",
+    name: "Blanco Vanity Cabinet 800mm",
     type: FurnitureType.VanityCabinet,
     path: "models/vanity-cabinet/Vanity-Cabinet-800mm.glb",
     dimensions: [0, 0, 0],
@@ -256,6 +279,7 @@ export const allFurnitures: Furniture[] = [
   },
   {
     key: "vanity-cabinet-brown-stone-800mm",
+    name: "Brown Stone Vanity Cabinet 800mm",
     type: FurnitureType.VanityCabinet,
     path: "models/vanity-cabinet/Vanity-Cabinet-800mm.glb",
     dimensions: [0, 0, 0],
@@ -267,6 +291,7 @@ export const allFurnitures: Furniture[] = [
   },
   {
     key: "vanity-cabinet-charcoal-ash-800mm",
+    name: "Charcoal Ash Vanity Cabinet 800mm",
     type: FurnitureType.VanityCabinet,
     path: "models/vanity-cabinet/Vanity-Cabinet-800mm.glb",
     dimensions: [0, 0, 0],
@@ -278,6 +303,7 @@ export const allFurnitures: Furniture[] = [
   },
   {
     key: "vanity-cabinet-graphite-800mm",
+    name: "Graphite Vanity Cabinet 800mm",
     type: FurnitureType.VanityCabinet,
     path: "models/vanity-cabinet/Vanity-Cabinet-800mm.glb",
     dimensions: [0, 0, 0],
@@ -289,6 +315,7 @@ export const allFurnitures: Furniture[] = [
   },
   {
     key: "vanity-cabinet-matt-black-800mm",
+    name: "Matt Black Vanity Cabinet 800mm",
     type: FurnitureType.VanityCabinet,
     path: "models/vanity-cabinet/Vanity-Cabinet-800mm.glb",
     dimensions: [0, 0, 0],
@@ -300,6 +327,7 @@ export const allFurnitures: Furniture[] = [
   },
   {
     key: "vanity-cabinet-oakwood-800mm",
+    name: "Oakwood Vanity Cabinet 800mm",
     type: FurnitureType.VanityCabinet,
     path: "models/vanity-cabinet/Vanity-Cabinet-800mm.glb",
     dimensions: [0, 0, 0],
@@ -326,10 +354,47 @@ const useStore = create<StoreState>((set, get) => ({
     wall: allWallTextures[0],
     ceiling: allCeilingTextures[0],
   },
+  modals: {
+    shoppingCart: false,
+  },
+  cartItems: [],
+  addToCart: (id: string) => {
+    const furniture = allFurnitures.find((furniture) => furniture.key === id);
+    if (!furniture) {
+      return;
+    }
 
+    set((state) => {
+      return {
+        ...state,
+        cartItems: [...state.cartItems, furniture],
+      };
+    });
+  },
+  removeFromCart: (type: FurnitureType) => {
+    set((state) => {
+      return {
+        ...state,
+        cartItems: state.cartItems.filter((item) => item.type !== type),
+      };
+    });
+  },
+  clearCart: () => set({ cartItems: [] }),
+  setModal: (modal: string, open: boolean) => {
+    set((state) => {
+      return {
+        ...state,
+        modals: {
+          ...state.modals,
+          [modal]: open,
+        },
+      };
+    });
+  },
   furnitureMap: {
     [FurnitureType.Basin]: {
       key: "basin",
+      name: "Basin",
       type: FurnitureType.Basin,
       path: "models/bto-basin-620mm.glb",
       dimensions: [0, 0, 0],
@@ -338,6 +403,7 @@ const useStore = create<StoreState>((set, get) => ({
     },
     [FurnitureType.BasinTap]: {
       key: "basin-tap",
+      name: "Basin Tap",
       type: FurnitureType.BasinTap,
       path: "models/bto-default-tap.glb",
       dimensions: [0, 0, 0],
@@ -346,6 +412,7 @@ const useStore = create<StoreState>((set, get) => ({
     },
     [FurnitureType.ToiletBowl]: {
       key: "toilet-bowl",
+      name: "Toilet Bowl",
       type: FurnitureType.ToiletBowl,
       path: "models/HDB-BTO-toiletbowl.glb",
       dimensions: [0, 0, 0],
@@ -354,6 +421,7 @@ const useStore = create<StoreState>((set, get) => ({
     },
     [FurnitureType.Ceiling]: {
       key: "toilet-ceiling",
+      name: "Toilet Ceiling",
       type: FurnitureType.Ceiling,
       path: "models/bto-toilet-ceiling-top-section.glb",
       dimensions: [0, 0, 0],
@@ -362,6 +430,7 @@ const useStore = create<StoreState>((set, get) => ({
     },
     [FurnitureType.Shower]: {
       key: "shower",
+      name: "Shower",
       type: FurnitureType.Shower,
       path: "models/bto-default-showerhead.glb",
       dimensions: [0, 0, 0],
@@ -504,6 +573,7 @@ const useStore = create<StoreState>((set, get) => ({
         const vanityCabinet = allFurnitures.find(
           (furniture) => furniture.key === vanityCabinetKey,
         );
+        const { addToCart, removeFromCart } = get();
         if (vanityCabinet) {
           set({
             furnitureMap: {
@@ -511,6 +581,8 @@ const useStore = create<StoreState>((set, get) => ({
               [FurnitureType.VanityCabinet]: vanityCabinet,
             },
           });
+          removeFromCart(FurnitureType.VanityCabinet);
+          addToCart(vanityCabinetKey);
         }
 
         const countertop = allFurnitures.find(
@@ -523,6 +595,8 @@ const useStore = create<StoreState>((set, get) => ({
               [FurnitureType.BasinCounterTop]: countertop,
             },
           });
+          removeFromCart(FurnitureType.BasinCounterTop);
+          addToCart(counterTopKey);
         }
 
         break;

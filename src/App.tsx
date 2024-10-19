@@ -10,6 +10,7 @@ import PackagePopUp from "./components/PackagePopUp";
 import PackageChooserFloating from "./components/PackageChooserFloating";
 import ShoppingCartFloating from "./components/ShoppingCartFloating";
 import { Notifications } from "@mantine/notifications";
+import ShoppingCartPopUp from "./components/ShoppingCartPopUp";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
       <PackagePopUp />
       <PackageChooserFloating />
       <ShoppingCartFloating />
+      <ShoppingCartPopUp />
     </MantineProvider>
   );
 }

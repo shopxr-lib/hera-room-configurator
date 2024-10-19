@@ -31,7 +31,7 @@ const CustomizePopUp: React.FC = () => {
     <Modal
       opened={!!popUpInfo}
       onClose={handleClose}
-      title={<Title order={2}>{popUpInfo?.title}</Title>}
+      title={popUpInfo.title}
       centered
       classNames={{
         content: "sm:left-4 sm:absolute sm:w-[400px]",
@@ -145,7 +145,7 @@ const CustomizePopUp: React.FC = () => {
             notifications.show({
               title: "Success",
               message: "Your changes have been saved",
-              position: "top-right",
+              position: "top-center",
             });
             handleClose();
           }}
