@@ -31,7 +31,7 @@ const CustomizePopUp: React.FC = () => {
     <Modal
       opened={!!popUpInfo}
       onClose={handleClose}
-      title={popUpInfo.title}
+      title={<p className="text-3xl font-bold">{popUpInfo.title}</p>}
       centered
       classNames={{
         content: "sm:left-4 sm:absolute sm:w-[400px]",
