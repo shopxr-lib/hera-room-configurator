@@ -11,9 +11,10 @@ const PackagePopUpFloating: React.FC = () => {
   }
 
   return (
-    <div className="fixed left-4 top-4 rounded-md bg-white p-4">
+    <div className="fixed left-4 top-4 w-[150px] rounded-md bg-white p-4">
       <Select
-        label="Change package"
+        size="xs"
+        label="Package"
         data={packageChoices}
         value={selectedPackage}
         onChange={(_, option) => {
