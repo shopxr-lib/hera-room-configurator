@@ -246,7 +246,7 @@ const PopUpInfos: Record<string, PopUpInfo> = {
     l2: {
       "600": {
         parent: "600",
-        title: "Vanity Cabinet Color",
+        title: "Cabinet",
         choices: [
           {
             key: "vanity-birch-600mm",
