@@ -1,5 +1,6 @@
-import { Modal, Title, Text } from "@mantine/core";
+import { Divider, Modal, Title } from "@mantine/core";
 import useStore from "../store/useStore";
+import { startingPrices } from "./constants";
 
 const ShoppingCartPopUp = () => {
   const opened = useStore((state) => state.modals.shoppingCart);
@@ -9,6 +10,11 @@ const ShoppingCartPopUp = () => {
 
   const chosenPackage = useStore((state) => state.package);
 
+  const total = cartItems.reduce(
+    (acc, item) => acc + item.price,
+    startingPrices[chosenPackage],
+  );
+
   return (
     <Modal
       opened={opened}
@@ -17,25 +23,49 @@ const ShoppingCartPopUp = () => {
         content: "sm:right-8 sm:absolute sm:w-[500px]",
         title: "text-xl font-bold",
       }}
-      centered
-      title={"Shopping Cart"}
+      title={"Cart"}
     >
       <div className="flex flex-col gap-4">
-        <div>
-          <Title order={5}>Chosen Package </Title>
-          <Text className="capitalize">{chosenPackage}</Text>
-        </div>
         <div className="flex flex-col gap-2">
           <div className="flex justify-between">
-            <Title order={5}>Included Items</Title>
+            <Title order={5}>Items</Title>
             <Title order={5}>Price</Title>
+          </div>
+          <div className="flex justify-between">
+            <p>
+              Package: <span className="capitalize">{chosenPackage}</span>
+            </p>
+            <p>
+              {Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+                maximumFractionDigits: 0,
+              }).format(startingPrices[chosenPackage])}
+            </p>
           </div>
           {cartItems.map((item) => (
             <div key={item.key} className="flex justify-between">
               <p>{item.name}</p>
-              <p>0</p>
+              <p>
+                {Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                  maximumFractionDigits: 0,
+                }).format(item.price)}
+              </p>
             </div>
           ))}
+          <Divider />
+          <div className="flex justify-between">
+            <p className="font-bold">Total</p>
+            <p className="font-bold">
+              {Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+                maximumFractionDigits: 0,
+              }).format(total)}
+            </p>
+          </div>
         </div>
       </div>
     </Modal>

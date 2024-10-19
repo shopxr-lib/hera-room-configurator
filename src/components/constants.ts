@@ -10,3 +10,10 @@ export const packageChoices = [
   },
   { value: "luxury", label: "Luxury (Coming Soon)", disabled: true },
 ];
+
+export const startingPrices = {
+  default: 0,
+  enhanced: 2900,
+  premium: 4900,
+  luxury: 7900,
+};

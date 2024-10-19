@@ -21,6 +21,7 @@ export type Furniture = {
   minPackageTier: PackageType;
   textureMap?: Partial<TextureMap>;
   variants?: Record<string, Furniture[]>;
+  price: number;
 };
 
 export type TextureMap = {
@@ -48,7 +49,7 @@ type ModalType = "shoppingCart";
 type PackageType = "default" | "enhanced" | "premium" | "luxury";
 
 type StoreState = {
-  package: PackageType | "";
+  package: PackageType;
   setPackage: (p: string) => void;
   roomDimensions: {
     depth: number;
@@ -64,7 +65,7 @@ type StoreState = {
   removeFromCart: (type: FurnitureType) => void;
   clearCart: () => void;
 
-  furnitureMap: Partial<Record<FurnitureType, Furniture>>;
+  furnitureMap: Partial<Record<FurnitureType, Omit<Furniture, "price">>>;
   setFurnitureMapByTier: (minPackageTier: string) => void;
   setFurnitureDimensions: (
     type: FurnitureType,
@@ -129,6 +130,7 @@ export const allFurnitures: Furniture[] = [
       map: "images/maps/black-quartz-600mm-countertop-diffused.webp",
       roughnessMap: "images/maps/black-quartz-600mm-countertop-roughness.webp",
     },
+    price: 0,
   },
   {
     key: "counter-top-white-600mm",
@@ -142,6 +144,7 @@ export const allFurnitures: Furniture[] = [
       map: "images/maps/white-quartz-600mm-countertop-diffused.webp",
       roughnessMap: "images/maps/white-quartz-600mm-countertop-roughness.webp",
     },
+    price: 0,
   },
   {
     key: "counter-top-black-800mm",
@@ -155,6 +158,7 @@ export const allFurnitures: Furniture[] = [
       map: "images/maps/black-quartz-800mm-countertop-diffused.webp",
       roughnessMap: "images/maps/black-quartz-800mm-countertop-roughness.webp",
     },
+    price: 0,
   },
   {
     key: "counter-top-white-800mm",
@@ -168,6 +172,7 @@ export const allFurnitures: Furniture[] = [
       map: "images/maps/white-quartz-800mm-countertop-diffused.webp",
       roughnessMap: "images/maps/white-quartz-800mm-countertop-roughness.webp",
     },
+    price: 0,
   },
 
   // Vanity Cabinet
@@ -182,6 +187,7 @@ export const allFurnitures: Furniture[] = [
     textureMap: {
       map: "images/maps/vanity-cabinet/Birch.png",
     },
+    price: 0,
   },
   {
     key: "vanity-cabinet-blanco-600mm",
@@ -194,6 +200,7 @@ export const allFurnitures: Furniture[] = [
     textureMap: {
       map: "images/maps/vanity-cabinet/Blanco.png",
     },
+    price: 0,
   },
   {
     key: "vanity-cabinet-brown-stone-600mm",
@@ -206,6 +213,7 @@ export const allFurnitures: Furniture[] = [
     textureMap: {
       map: "images/maps/vanity-cabinet/Brown-Stone.png",
     },
+    price: 0,
   },
   {
     key: "vanity-cabinet-charcoal-ash-600mm",
@@ -218,6 +226,7 @@ export const allFurnitures: Furniture[] = [
     textureMap: {
       map: "images/maps/vanity-cabinet/Charcoal-Ash.png",
     },
+    price: 0,
   },
   {
     key: "vanity-cabinet-matt-black-600mm",
@@ -230,6 +239,7 @@ export const allFurnitures: Furniture[] = [
     textureMap: {
       map: "images/maps/vanity-cabinet/Matt-Black.png",
     },
+    price: 0,
   },
   {
     key: "vanity-cabinet-graphite-600mm",
@@ -242,6 +252,7 @@ export const allFurnitures: Furniture[] = [
     textureMap: {
       map: "images/maps/vanity-cabinet/Graphite.png",
     },
+    price: 0,
   },
   {
     key: "vanity-cabinet-oakwood-600mm",
@@ -254,6 +265,7 @@ export const allFurnitures: Furniture[] = [
     textureMap: {
       map: "images/maps/vanity-cabinet/Oakwood.png",
     },
+    price: 0,
   },
   {
     key: "vanity-cabinet-birch-800mm",
@@ -266,6 +278,7 @@ export const allFurnitures: Furniture[] = [
     textureMap: {
       map: "images/maps/vanity-cabinet/Birch.png",
     },
+    price: 0,
   },
   {
     key: "vanity-cabinet-blanco-800mm",
@@ -278,6 +291,7 @@ export const allFurnitures: Furniture[] = [
     textureMap: {
       map: "images/maps/vanity-cabinet/Blanco.png",
     },
+    price: 0,
   },
   {
     key: "vanity-cabinet-brown-stone-800mm",
@@ -290,6 +304,7 @@ export const allFurnitures: Furniture[] = [
     textureMap: {
       map: "images/maps/vanity-cabinet/Brown-Stone.png",
     },
+    price: 0,
   },
   {
     key: "vanity-cabinet-charcoal-ash-800mm",
@@ -302,6 +317,7 @@ export const allFurnitures: Furniture[] = [
     textureMap: {
       map: "images/maps/vanity-cabinet/Charcoal-Ash.png",
     },
+    price: 0,
   },
   {
     key: "vanity-cabinet-graphite-800mm",
@@ -314,6 +330,7 @@ export const allFurnitures: Furniture[] = [
     textureMap: {
       map: "images/maps/vanity-cabinet/Graphite.png",
     },
+    price: 0,
   },
   {
     key: "vanity-cabinet-matt-black-800mm",
@@ -326,6 +343,7 @@ export const allFurnitures: Furniture[] = [
     textureMap: {
       map: "images/maps/vanity-cabinet/Matt-Black.png",
     },
+    price: 0,
   },
   {
     key: "vanity-cabinet-oakwood-800mm",
@@ -338,6 +356,7 @@ export const allFurnitures: Furniture[] = [
     textureMap: {
       map: "images/maps/vanity-cabinet/Oakwood.png",
     },
+    price: 0,
   },
 ];
 
@@ -349,7 +368,7 @@ const roomDimensions = {
 
 const useStore = create<StoreState>((set, get) => ({
   roomDimensions,
-  package: "",
+  package: "default",
   setPackage: (p: string) => set({ package: p as PackageType }),
   textures: {
     floor: allFloorsTextures[0],
@@ -446,7 +465,7 @@ const useStore = create<StoreState>((set, get) => ({
       return isPackageTierSufficient(value.minPackageTier, minPackageTier);
     });
     const newFurnitureMap = filteredFurnitures.reduce<
-      Partial<Record<FurnitureType, Furniture>>
+      Partial<Record<FurnitureType, Omit<Furniture, "price">>>
     >((acc, curr) => {
       acc[curr.type] = curr;
       return acc;
