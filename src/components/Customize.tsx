@@ -6,8 +6,8 @@ import { isPackageTierSufficient } from "../lib/utils";
 type Props = object;
 
 const Customize: React.FC<Props> = () => {
-  const customizePopUpKey = useStore((state) => state.customizePopUpKey);
   const setCustomizePopUpKey = useStore((state) => state.setCustomizePopUpKey);
+  const setModal = useStore((state) => state.setModal);
   const selectedPackage = useStore((state) => state.package);
 
   return (
@@ -17,15 +17,16 @@ const Customize: React.FC<Props> = () => {
           isPackageTierSufficient(productIcon.minPackageTier, selectedPackage),
         )
         .map((productIcon) => {
-          const isSelected = customizePopUpKey === productIcon.key;
           return (
             <button
               key={productIcon.key}
-              className={clsx("rounded-md border-2 p-1", {
-                "border-brand": isSelected,
-                "border-transparent hover:border-gray-200": !isSelected,
-              })}
-              onClick={() => setCustomizePopUpKey(productIcon.key)}
+              className={clsx(
+                "rounded-md border-2 border-transparent p-1 hover:border-gray-200",
+              )}
+              onClick={() => {
+                setModal("customize", true);
+                setCustomizePopUpKey(productIcon.key);
+              }}
             >
               <img
                 className="h-8"

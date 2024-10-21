@@ -44,7 +44,7 @@ type TextureObject = {
 
 type TextureObjectType = "floor" | "wall" | "ceiling";
 
-type ModalType = "shoppingCart";
+type ModalType = "shoppingCart" | "customize";
 
 type PackageType = "default" | "enhanced" | "premium" | "luxury";
 
@@ -377,6 +377,7 @@ const useStore = create<StoreState>((set, get) => ({
   },
   modals: {
     shoppingCart: false,
+    customize: false,
   },
   cartItems: [],
   addToCart: (id: string) => {

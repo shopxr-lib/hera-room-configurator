@@ -6,11 +6,12 @@ import { notifications } from "@mantine/notifications";
 
 const CustomizePopUp: React.FC = () => {
   const customizePopUpKey = useStore((state) => state.customizePopUpKey);
-  const setCustomizePopUpKey = useStore((state) => state.setCustomizePopUpKey);
   const customizeSelected = useStore((state) => state.customizeSelected);
   const clearCustomizeSelected = useStore(
     (state) => state.clearCustomizeSelected,
   );
+  const opened = useStore((state) => state.modals.customize);
+  const setModal = useStore((state) => state.setModal);
 
   const addCustomizeSelected = useStore((state) => state.addCustomizeSelected);
   const commitCustomizeSelected = useStore(
@@ -23,13 +24,13 @@ const CustomizePopUp: React.FC = () => {
   }
 
   const handleClose = () => {
-    setCustomizePopUpKey("");
+    setModal("customize", false);
     clearCustomizeSelected();
   };
 
   return (
     <Modal
-      opened={!!popUpInfo}
+      opened={opened}
       onClose={handleClose}
       title={<p className="text-3xl font-bold">{popUpInfo.title}</p>}
       centered
