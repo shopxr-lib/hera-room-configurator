@@ -418,7 +418,7 @@ const useStore = create<StoreState>((set, get) => ({
       key: "basin",
       name: "Basin",
       type: FurnitureType.Basin,
-      path: "models/bto-basin-620mm.glb",
+      path: "models/bto-basin-530mm.glb",
       dimensions: [0, 0, 0],
       position: [0, 0, 0],
       minPackageTier: "default",
