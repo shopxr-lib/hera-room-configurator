@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import useStore from "../store/useStore";
 import { Button, Modal, Title } from "@mantine/core";
@@ -17,6 +17,8 @@ const CustomizePopUp: React.FC = () => {
   const commitCustomizeSelected = useStore(
     (state) => state.commitCustomizeSelected,
   );
+
+  const [step, setStep] = useState(0);
 
   const popUpInfo = PopUpInfos[customizePopUpKey];
   if (!popUpInfo) {
@@ -54,7 +56,10 @@ const CustomizePopUp: React.FC = () => {
                       "border-transparent hover:border-gray-100": !isSelected,
                       "h-24 w-24": choice.image,
                     })}
-                    onClick={() => addCustomizeSelected(choice.key, 0)}
+                    onClick={() => {
+                      addCustomizeSelected(choice.key, 0);
+                      setStep(1);
+                    }}
                   >
                     {choice.image ? (
                       <img
@@ -71,7 +76,8 @@ const CustomizePopUp: React.FC = () => {
             </div>
           </div>
         ))}
-        {customizeSelected.length > 0 &&
+        {step >= 1 &&
+          customizeSelected.length > 0 &&
           customizeSelected[0] in popUpInfo.l2 && (
             <div className="flex flex-col gap-4">
               <Title order={3}>
@@ -90,6 +96,7 @@ const CustomizePopUp: React.FC = () => {
                       })}
                       onClick={() => {
                         addCustomizeSelected(choice.productKey, 1);
+                        setStep(2);
                       }}
                     >
                       {choice.image ? (
@@ -107,7 +114,7 @@ const CustomizePopUp: React.FC = () => {
               </div>
             </div>
           )}
-        {popUpInfo.l3 && customizeSelected[0] in popUpInfo.l3 && (
+        {step >= 2 && popUpInfo.l3 && customizeSelected[0] in popUpInfo.l3 && (
           <div className="flex flex-col gap-4">
             <Title order={3}>{popUpInfo.l3[customizeSelected[0]].title}</Title>
             <div className="grid grid-cols-3 items-center justify-items-center gap-4">
@@ -123,6 +130,7 @@ const CustomizePopUp: React.FC = () => {
                     })}
                     onClick={() => {
                       addCustomizeSelected(choice.productKey, 2);
+                      setStep(3);
                     }}
                   >
                     {choice.image ? (
@@ -140,20 +148,21 @@ const CustomizePopUp: React.FC = () => {
             </div>
           </div>
         )}
-        <Button
-          onClick={() => {
-            commitCustomizeSelected();
-            notifications.show({
-              title: "Success",
-              message: "Your changes have been saved",
-              position: "top-center",
-            });
-            handleClose();
-          }}
-          disabled={customizeSelected.length < (popUpInfo.minSelected ?? 1)}
-        >
-          {popUpInfo.buttonText ?? "Save"}
-        </Button>
+        {step >= popUpInfo.maxStep && (
+          <Button
+            onClick={() => {
+              commitCustomizeSelected();
+              notifications.show({
+                title: "Success",
+                message: "Your changes have been saved",
+                position: "top-center",
+              });
+              handleClose();
+            }}
+          >
+            {popUpInfo.buttonText ?? "Save"}
+          </Button>
+        )}
       </div>
     </Modal>
   );
@@ -164,7 +173,7 @@ const PopUpInfos: Record<string, PopUpInfo> = {
     title: "Wallpaper",
     subtitle: "Choose a wallpaper for your bathroom",
     buttonText: "Save",
-    minSelected: 2,
+    maxStep: 2,
     l1: [
       {
         title: "Surface",
@@ -228,7 +237,7 @@ const PopUpInfos: Record<string, PopUpInfo> = {
     subtitle:
       "Mix & Match your very own vanity cabinet set & add it into the scene.",
     buttonText: "Add Furniture",
-    minSelected: 3,
+    maxStep: 3,
     l1: [
       {
         title: "Sizes",
@@ -387,7 +396,7 @@ type PopUpInfo = {
   title: string;
   subtitle?: string;
   buttonText?: string;
-  minSelected?: number;
+  maxStep: number;
   l1: {
     title: string;
     choices: {
