@@ -11,7 +11,7 @@ interface Props {
 }
 const VanityCabinet = ({ path, textureMap, ...props }: Props) => {
   const { scene } = useGLTF(path);
-  const texture = useTexture(textureMap!, (t) => {
+  const texture = useTexture(textureMap ?? {}, (t) => {
     Object.values(t).forEach((texture) => {
       texture.flipY = false;
     });
@@ -20,8 +20,10 @@ const VanityCabinet = ({ path, textureMap, ...props }: Props) => {
   useEffect(() => {
     scene.traverse((object) => {
       if (object instanceof THREE.Mesh) {
-        object.material.map = texture.map;
-        object.material.needsUpdate = true;
+        if (texture) {
+          object.material.map = texture.map;
+          object.material.needsUpdate = true;
+        }
       }
     });
   }, [scene, texture]);
