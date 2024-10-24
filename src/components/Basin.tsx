@@ -39,8 +39,8 @@ const Basin: React.FC<Props> = ({ path, ...props }) => {
       -roomDimension.depth / 2 -
         WALL_THICKNESS / 2 +
         size.x / 2 +
-        (cabinet ? 0.05 : 0),
-      roomDimension.height / 3 + (cabinet ? 0.07 : 0),
+        (cabinet?.key ? 0.05 : 0),
+      roomDimension.height / 3 + (cabinet?.key ? 0.07 : 0),
       roomDimension.depth / 4,
     ];
     setFurniturePosition(FurnitureType.Basin, derivedPosition);
@@ -49,7 +49,7 @@ const Basin: React.FC<Props> = ({ path, ...props }) => {
     roomDimension,
     setFurnitureDimensions,
     setFurniturePosition,
-    cabinet,
+    cabinet?.key,
   ]);
 
   return (
