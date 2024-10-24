@@ -19,7 +19,10 @@ const BasinTap: React.FC<Props> = ({ path: basePath, ...props }) => {
 
   const furnitureMap = useStore((state) => state.furnitureMap);
 
-  const basinFurniture = furnitureMap[FurnitureType.Basin];
+  let basinFurniture = furnitureMap[FurnitureType.Basin];
+  if (!basinFurniture) {
+    basinFurniture = furnitureMap[FurnitureType.InsertBasin];
+  }
 
   useEffect(() => {
     if (!ref.current) {
@@ -32,14 +35,28 @@ const BasinTap: React.FC<Props> = ({ path: basePath, ...props }) => {
     const box = new THREE.Box3().setFromObject(ref.current);
     const size = new THREE.Vector3();
     box.getSize(size);
-    setPosition([
-      basinFurniture.position[0] -
-        basinFurniture.dimensions[0] / 2 +
-        size.x / 2 -
-        0.01,
-      basinFurniture.position[1] + basinFurniture.dimensions[1],
-      basinFurniture.position[2],
-    ]);
+
+    let position: [number, number, number] = [0, 0, 0];
+    if (basinFurniture.type === FurnitureType.Basin) {
+      position = [
+        basinFurniture.position[0] -
+          basinFurniture.dimensions[0] / 2 +
+          size.x / 2 -
+          0.04,
+        basinFurniture.position[1] + basinFurniture.dimensions[1],
+        basinFurniture.position[2],
+      ];
+    } else {
+      position = [
+        basinFurniture.position[0] -
+          basinFurniture.dimensions[0] / 2 +
+          size.x / 2 -
+          0.05,
+        basinFurniture.position[1] + basinFurniture.dimensions[1] + size.y / 2,
+        basinFurniture.position[2],
+      ];
+    }
+    setPosition(position);
   }, [model.scene, setPosition, roomDimension, basinFurniture]);
 
   return (

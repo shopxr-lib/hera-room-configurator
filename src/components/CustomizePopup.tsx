@@ -18,6 +18,16 @@ const CustomizePopUp: React.FC = () => {
     (state) => state.commitCustomizeSelected,
   );
 
+  const customizeSelectedLevelKeys = useStore(
+    (state) => state.customizeSelectedLevelKeys,
+  );
+  const addCustomizeSelectedLevelKey = useStore(
+    (state) => state.addCustomizeSelectedLevelKeys,
+  );
+  const clearCustomizeSelectedLevelKeys = useStore(
+    (state) => state.clearCustomizeSelectedLevelKeys,
+  );
+
   const [step, setStep] = useState(0);
 
   const popUpInfo = PopUpInfos[customizePopUpKey];
@@ -57,8 +67,13 @@ const CustomizePopUp: React.FC = () => {
                       "h-24 w-24": choice.image,
                     })}
                     onClick={() => {
+                      clearCustomizeSelected();
                       addCustomizeSelected(choice.key, 0);
-                      setStep(1);
+
+                      clearCustomizeSelectedLevelKeys();
+                      addCustomizeSelectedLevelKey(choice.key, 0);
+
+                      setStep(Math.max(1, step));
                     }}
                   >
                     {choice.image ? (
@@ -84,70 +99,92 @@ const CustomizePopUp: React.FC = () => {
                 {popUpInfo.l2[customizeSelected[0]].title}
               </Title>
               <div className="grid grid-cols-3 items-center justify-items-center gap-4">
-                {popUpInfo.l2[customizeSelected[0]].choices.map((choice) => {
-                  const selected = customizeSelected[1] === choice.productKey;
-                  return (
-                    <button
-                      key={choice.key}
-                      className={clsx("rounded-md border-4", {
-                        "border-brand": selected,
-                        "border-transparent hover:border-gray-300": !selected,
-                        "h-24 w-24": choice.image,
-                      })}
-                      onClick={() => {
-                        addCustomizeSelected(choice.productKey, 1);
-                        setStep(2);
-                      }}
-                    >
-                      {choice.image ? (
-                        <img
-                          className="m-0 h-full w-full"
-                          src={choice.image}
-                          alt={choice.title}
-                        />
-                      ) : (
-                        choice.title
-                      )}
-                    </button>
-                  );
-                })}
+                {popUpInfo.l2[customizeSelectedLevelKeys[0]].choices.map(
+                  (choice) => {
+                    const selected = customizeSelected[1] === choice.productKey;
+                    const currentRecord =
+                      popUpInfo.l2[customizeSelectedLevelKeys[0]];
+                    return (
+                      <button
+                        key={choice.key}
+                        className={clsx("rounded-md border-4", {
+                          "border-brand": selected,
+                          "border-transparent hover:border-gray-300": !selected,
+                          "h-24 w-24": choice.image,
+                        })}
+                        onClick={() => {
+                          addCustomizeSelected(choice.productKey, 1);
+
+                          if (choice.nextLevelKey) {
+                            addCustomizeSelectedLevelKey(
+                              choice.nextLevelKey,
+                              1,
+                            );
+                          } else if (currentRecord.nextLevelKey) {
+                            addCustomizeSelectedLevelKey(
+                              currentRecord.nextLevelKey,
+                              1,
+                            );
+                          }
+                          setStep(Math.max(2, step));
+                        }}
+                      >
+                        {choice.image ? (
+                          <img
+                            className="m-0 h-full w-full"
+                            src={choice.image}
+                            alt={choice.title}
+                          />
+                        ) : (
+                          choice.title
+                        )}
+                      </button>
+                    );
+                  },
+                )}
               </div>
             </div>
           )}
-        {step >= 2 && popUpInfo.l3 && customizeSelected[0] in popUpInfo.l3 && (
-          <div className="flex flex-col gap-4">
-            <Title order={3}>{popUpInfo.l3[customizeSelected[0]].title}</Title>
-            <div className="grid grid-cols-3 items-center justify-items-center gap-4">
-              {popUpInfo.l3[customizeSelected[0]].choices.map((choice) => {
-                const selected = customizeSelected[2] === choice.productKey;
-                return (
-                  <button
-                    key={choice.key}
-                    className={clsx("rounded-md border-4 p-2", {
-                      "border-brand": selected,
-                      "border-transparent hover:border-gray-300": !selected,
-                      "h-24 w-24": choice.image,
-                    })}
-                    onClick={() => {
-                      addCustomizeSelected(choice.productKey, 2);
-                      setStep(3);
-                    }}
-                  >
-                    {choice.image ? (
-                      <img
-                        className="m-0 h-full w-full"
-                        src={choice.image}
-                        alt={choice.title}
-                      />
-                    ) : (
-                      choice.title
-                    )}
-                  </button>
-                );
-              })}
+        {step >= 2 &&
+          popUpInfo.l3 &&
+          customizeSelectedLevelKeys[1] in popUpInfo.l3 && (
+            <div className="flex flex-col gap-4">
+              <Title order={3}>
+                {popUpInfo.l3[customizeSelectedLevelKeys[1]].title}
+              </Title>
+              <div className="grid grid-cols-3 items-center justify-items-center gap-4">
+                {popUpInfo.l3[customizeSelectedLevelKeys[1]].choices.map(
+                  (choice) => {
+                    const selected = customizeSelected[2] === choice.productKey;
+                    return (
+                      <button
+                        key={choice.key}
+                        className={clsx("rounded-md border-4 p-2", {
+                          "border-brand": selected,
+                          "border-transparent hover:border-gray-300": !selected,
+                          "h-24 w-24": choice.image,
+                        })}
+                        onClick={() => {
+                          addCustomizeSelected(choice.productKey, 2);
+                          setStep(Math.max(3, step));
+                        }}
+                      >
+                        {choice.image ? (
+                          <img
+                            className="m-0 h-full w-full"
+                            src={choice.image}
+                            alt={choice.title}
+                          />
+                        ) : (
+                          choice.title
+                        )}
+                      </button>
+                    );
+                  },
+                )}
+              </div>
             </div>
-          </div>
-        )}
+          )}
         {step >= popUpInfo.maxStep && (
           <Button
             onClick={() => {
@@ -158,6 +195,7 @@ const CustomizePopUp: React.FC = () => {
                 position: "top-center",
               });
               handleClose();
+              setStep(0);
             }}
           >
             {popUpInfo.buttonText ?? "Save"}
@@ -243,6 +281,10 @@ const PopUpInfos: Record<string, PopUpInfo> = {
         title: "Sizes",
         choices: [
           {
+            key: "500",
+            title: "500mm",
+          },
+          {
             key: "600",
             title: "600mm",
           },
@@ -254,8 +296,31 @@ const PopUpInfos: Record<string, PopUpInfo> = {
       },
     ],
     l2: {
+      "500": {
+        parent: "500",
+        nextLevelKey: "500-hybrid",
+        title: "Cabinet",
+        choices: [
+          {
+            key: "vanity-cabinet-hybrid-pebble-500mm",
+            productKey: "hybrid-pebble",
+            image: "images/vanity-cabinet/hybrid-pebble-500mm.webp",
+          },
+          {
+            key: "vanity-cabinet-hybrid-pine-500mm",
+            productKey: "hybrid-pine",
+            image: "images/vanity-cabinet/hybrid-pine-500mm.webp",
+          },
+          {
+            key: "vanity-cabinet-hybrid-walnut-500mm",
+            productKey: "hybrid-walnut",
+            image: "images/vanity-cabinet/hybrid-walnut-500mm.webp",
+          },
+        ],
+      },
       "600": {
         parent: "600",
+        nextLevelKey: "600-normal",
         title: "Cabinet",
         choices: [
           {
@@ -300,9 +365,31 @@ const PopUpInfos: Record<string, PopUpInfo> = {
             title: "Oakwood",
             image: "images/vanity-cabinet/oakwood-600mm.webp",
           },
+          {
+            key: "vanity-hybrid-pebble-600mm",
+            productKey: "hybrid-pebble",
+            title: "Hybrid Pebble",
+            image: "images/vanity-cabinet/hybrid-pebble-600mm.webp",
+            nextLevelKey: "600-hybrid",
+          },
+          {
+            key: "vanity-hybrid-pine-600mm",
+            productKey: "hybrid-pine",
+            title: "Hybrid Pine",
+            image: "images/vanity-cabinet/hybrid-pine-600mm.webp",
+            nextLevelKey: "600-hybrid",
+          },
+          {
+            key: "vanity-hybrid-walnut-600mm",
+            productKey: "hybrid-walnut",
+            title: "Hybrid Walnut",
+            image: "images/vanity-cabinet/hybrid-walnut-600mm.webp",
+            nextLevelKey: "600-hybrid",
+          },
         ],
       },
       "800": {
+        nextLevelKey: "800-normal",
         parent: "800",
         title: "Vanity Cabinet Color",
         choices: [
@@ -348,43 +435,136 @@ const PopUpInfos: Record<string, PopUpInfo> = {
             title: "Oakwood",
             image: "images/vanity-cabinet/oakwood-800mm.webp",
           },
+          {
+            key: "vanity-hybrid-pebble-800mm",
+            productKey: "hybrid-pebble",
+            title: "Hybrid Pebble",
+            image: "images/vanity-cabinet/hybrid-pebble-800mm.webp",
+            nextLevelKey: "800-hybrid",
+          },
+          {
+            key: "vanity-hybrid-pine-800mm",
+            productKey: "hybrid-pine",
+            title: "Hybrid Pine",
+            image: "images/vanity-cabinet/hybrid-pine-800mm.webp",
+            nextLevelKey: "800-hybrid",
+          },
+          {
+            key: "vanity-hybrid-walnut-800mm",
+            productKey: "hybrid-walnut",
+            title: "Hybrid Walnut",
+            image: "images/vanity-cabinet/hybrid-walnut-800mm.webp",
+            nextLevelKey: "800-hybrid",
+          },
         ],
       },
     },
     l3: {
-      "600": {
-        parent: "vanity-cabinet-set-600mm",
+      "500-hybrid": {
+        parent: "500",
+        title: "Insert Basin",
+        choices: [
+          {
+            key: "insert-basin-ceramic-500mm",
+            productKey: "insert-basin-ceramic",
+            title: "Ceramic Helios",
+            image: "images/insert-basin/ceramic-helios.webp",
+          },
+          {
+            key: "insert-basin-glass-black-500mm",
+            productKey: "insert-basin-glass-black",
+            title: "Glass Black",
+            image: "images/insert-basin/glass-black.webp",
+          },
+          {
+            key: "insert-basin-glass-white-500mm",
+            productKey: "insert-basin-glass-white",
+            title: "Glass White",
+            image: "images/insert-basin/glass-white.webp",
+          },
+        ],
+      },
+      "600-normal": {
+        parent: "600",
         title: "Counter Top",
         choices: [
           {
             key: "counter-top-black-600mm",
-            productKey: "black",
+            productKey: "counter-top-black",
             title: "Black",
             image: "images/counter-top/countertop-black.webp",
           },
           {
             key: "counter-top-white-600mm",
-            productKey: "white",
+            productKey: "counter-top-white",
             title: "White",
             image: "images/counter-top/countertop-white.webp",
           },
         ],
       },
-      "800": {
+      "600-hybrid": {
+        parent: "600-hybrid",
+        title: "Insert Basin",
+        choices: [
+          {
+            key: "insert-basin-ceramic-600mm",
+            productKey: "insert-basin-ceramic",
+            title: "Ceramic Helios",
+            image: "images/insert-basin/ceramic-helios.webp",
+          },
+          {
+            key: "insert-basin-glass-black-600mm",
+            productKey: "insert-basin-glass-black",
+            title: "Glass Black",
+            image: "images/insert-basin/glass-black.webp",
+          },
+          {
+            key: "insert-basin-glass-white-600mm",
+            productKey: "insert-basin-glass-white",
+            title: "Glass White",
+            image: "images/insert-basin/glass-white.webp",
+          },
+        ],
+      },
+      "800-normal": {
         parent: "800",
         title: "Counter Top",
         choices: [
           {
             key: "counter-top-black-800mm",
-            productKey: "black",
+            productKey: "counter-top-black",
             title: "Black",
             image: "images/counter-top/countertop-black.webp",
           },
           {
             key: "counter-top-white-800mm",
-            productKey: "white",
+            productKey: "counter-top-white",
             title: "White",
             image: "images/counter-top/countertop-white.webp",
+          },
+        ],
+      },
+      "800-hybrid": {
+        parent: "800-hybrid",
+        title: "Insert Basin",
+        choices: [
+          {
+            key: "insert-basin-ceramic-800mm",
+            productKey: "insert-basin-ceramic",
+            title: "Ceramic Helios",
+            image: "images/insert-basin/ceramic-helios.webp",
+          },
+          {
+            key: "insert-basin-glass-black-800mm",
+            productKey: "insert-basin-glass-black",
+            title: "Glass Black",
+            image: "images/insert-basin/glass-black.webp",
+          },
+          {
+            key: "insert-basin-glass-white-800mm",
+            productKey: "insert-basin-glass-white",
+            title: "Glass White",
+            image: "images/insert-basin/glass-white.webp",
           },
         ],
       },
@@ -405,32 +585,23 @@ type PopUpInfo = {
       image?: string;
     }[];
   }[];
-  l2: Record<
-    string,
-    {
-      parent: string;
-      title: string;
-      choices: {
-        key: string;
-        productKey: string;
-        title?: string;
-        image?: string;
-      }[];
-    }
-  >;
-  l3?: Record<
-    string,
-    {
-      parent: string;
-      title: string;
-      choices: {
-        key: string; // for React Component
-        productKey: string; // for constructing product
-        title?: string;
-        image?: string;
-      }[];
-    }
-  >;
+  l2: Record<string, ProductRecord>;
+  l3?: Record<string, ProductRecord>;
+};
+
+type ProductRecord = {
+  parent: string;
+  title: string;
+  nextLevelKey?: string; // to determine the next level (record-level)
+  choices: ProductChoice[];
+};
+
+type ProductChoice = {
+  key: string; // for React Component
+  productKey: string; // for constructing product
+  nextLevelKey?: string; // to determine the next level (choice-level)
+  title?: string;
+  image?: string;
 };
 
 export default CustomizePopUp;

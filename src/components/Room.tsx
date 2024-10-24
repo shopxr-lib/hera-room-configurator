@@ -12,6 +12,7 @@ import BasinCounterTop from "./BasinCounterTop";
 import { Suspense } from "react";
 import VanityCabinet from "./VanityCabinet";
 import Basin from "./Basin";
+import InsertBasin from "./InsertBasin";
 
 const Room = () => {
   const roomDimension = useStore((state) => state.roomDimensions);
@@ -110,6 +111,16 @@ const Room = () => {
                 <VanityCabinet
                   path={furniture.path}
                   textureMap={furniture.textureMap}
+                  rotation={[0, Math.PI / 2, 0]}
+                  variant={furniture.variant}
+                />
+              </Suspense>
+            );
+          case FurnitureType.InsertBasin:
+            return (
+              <Suspense key={furniture.key}>
+                <InsertBasin
+                  path={furniture.path}
                   rotation={[0, Math.PI / 2, 0]}
                 />
               </Suspense>
