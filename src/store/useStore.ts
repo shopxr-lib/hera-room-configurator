@@ -358,7 +358,60 @@ export const allFurnitures: Furniture[] = [
     },
     price: 0,
   },
-];
+const defaultBasin: Furniture = {
+  key: "basin",
+  name: "Basin",
+  type: FurnitureType.Basin,
+  path: "models/bto-basin-530mm.glb",
+  dimensions: [0, 0, 0],
+  position: [0, 0, 0],
+  minPackageTier: "default",
+  price: 0,
+};
+
+const defaultFurnitureMap: Partial<Record<FurnitureType, Furniture>> = {
+  [FurnitureType.Basin]: defaultBasin,
+  [FurnitureType.BasinTap]: {
+    key: "basin-tap",
+    name: "Basin Tap",
+    type: FurnitureType.BasinTap,
+    path: "models/bto-default-tap.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "default",
+    price: 0,
+  },
+  [FurnitureType.ToiletBowl]: {
+    key: "toilet-bowl",
+    name: "Toilet Bowl",
+    type: FurnitureType.ToiletBowl,
+    path: "models/HDB-BTO-toiletbowl.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "default",
+    price: 0,
+  },
+  [FurnitureType.Ceiling]: {
+    key: "toilet-ceiling",
+    name: "Toilet Ceiling",
+    type: FurnitureType.Ceiling,
+    path: "models/bto-toilet-ceiling-top-section.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "default",
+    price: 0,
+  },
+  [FurnitureType.Shower]: {
+    key: "shower",
+    name: "Shower",
+    type: FurnitureType.Shower,
+    path: "models/bto-default-showerhead.glb",
+    dimensions: [0, 0, 0],
+    position: [0, 0, 0],
+    minPackageTier: "default",
+    price: 0,
+  },
+};
 
 const roomDimensions = {
   depth: 1.7,
@@ -413,69 +466,12 @@ const useStore = create<StoreState>((set, get) => ({
       };
     });
   },
-  furnitureMap: {
-    [FurnitureType.Basin]: {
-      key: "basin",
-      name: "Basin",
-      type: FurnitureType.Basin,
-      path: "models/bto-basin-530mm.glb",
-      dimensions: [0, 0, 0],
-      position: [0, 0, 0],
-      minPackageTier: "default",
-    },
-    [FurnitureType.BasinTap]: {
-      key: "basin-tap",
-      name: "Basin Tap",
-      type: FurnitureType.BasinTap,
-      path: "models/bto-default-tap.glb",
-      dimensions: [0, 0, 0],
-      position: [0, 0, 0],
-      minPackageTier: "default",
-    },
-    [FurnitureType.ToiletBowl]: {
-      key: "toilet-bowl",
-      name: "Toilet Bowl",
-      type: FurnitureType.ToiletBowl,
-      path: "models/HDB-BTO-toiletbowl.glb",
-      dimensions: [0, 0, 0],
-      position: [0, 0, 0],
-      minPackageTier: "default",
-    },
-    [FurnitureType.Ceiling]: {
-      key: "toilet-ceiling",
-      name: "Toilet Ceiling",
-      type: FurnitureType.Ceiling,
-      path: "models/bto-toilet-ceiling-top-section.glb",
-      dimensions: [0, 0, 0],
-      position: [0, 0, 0],
-      minPackageTier: "default",
-    },
-    [FurnitureType.Shower]: {
-      key: "shower",
-      name: "Shower",
-      type: FurnitureType.Shower,
-      path: "models/bto-default-showerhead.glb",
-      dimensions: [0, 0, 0],
-      position: [0, 0, 0],
-      minPackageTier: "default",
-    },
-  },
-  setFurnitureMapByTier: (minPackageTier: string) => {
-    const funitureMap = get().furnitureMap;
-    const filteredFurnitures = Object.values(funitureMap).filter((value) => {
-      return isPackageTierSufficient(value.minPackageTier, minPackageTier);
-    });
-    const newFurnitureMap = filteredFurnitures.reduce<
-      Partial<Record<FurnitureType, Omit<Furniture, "price">>>
-    >((acc, curr) => {
-      acc[curr.type] = curr;
-      return acc;
-    }, {});
-
+  furnitureMap: defaultFurnitureMap,
+  setDefaultFurnitureMap: () => {
     set((state) => {
       return {
         ...state,
-        furnitureMap: newFurnitureMap,
+        furnitureMap: defaultFurnitureMap,
       };
     });
   },

@@ -18,6 +18,7 @@ const Basin: React.FC<Props> = ({ path, ...props }) => {
   const setFurnitureDimensions = useStore(
     (state) => state.setFurnitureDimensions,
   );
+  const selectedPackage = useStore((state) => state.package);
 
   const furnitureMap = useStore((state) => state.furnitureMap);
   const self = furnitureMap[FurnitureType.Basin];
@@ -50,6 +51,7 @@ const Basin: React.FC<Props> = ({ path, ...props }) => {
     setFurnitureDimensions,
     setFurniturePosition,
     cabinet?.key,
+    selectedPackage, // recalculate position when package changes
   ]);
 
   return (
