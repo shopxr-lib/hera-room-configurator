@@ -52,7 +52,7 @@ const CustomizePopUp: React.FC = () => {
       }}
     >
       <div className="flex flex-col gap-8">
-        <p>{popUpInfo.subtitle}</p>
+        <Text>{popUpInfo.subtitle}</Text>
         {popUpInfo.l1.items.map((l1) => (
           <div key={l1.title} className="flex flex-col gap-4">
             <Title order={3}>{l1.title}</Title>
@@ -203,7 +203,7 @@ const CustomizePopUp: React.FC = () => {
                 (customizeSelected[1].includes("hybrid") ? (
                   <div className="flex flex-col gap-2">
                     <Title order={3}>Tap</Title>
-                    <Text size="sm" c="dimmed">
+                    <Text size="sm">
                       Our enhanced package reuses the BTO default tap,
                       thoughtfully integrated into a stylish cabinet set. This
                       approach not only enhances your bathroom's aesthetics but
@@ -213,7 +213,7 @@ const CustomizePopUp: React.FC = () => {
                 ) : (
                   <div className="flex flex-col gap-2">
                     <Title order={3}>Basin and Tap</Title>
-                    <Text size="sm" c="dimmed">
+                    <Text size="sm">
                       Our enhanced package reuses the BTO default basin and tap,
                       thoughtfully integrated into a stylish cabinet set. This
                       approach not only enhances your bathroom's aesthetics but
