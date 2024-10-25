@@ -78,11 +78,13 @@ const CustomizePopUp: React.FC = () => {
                     }}
                   >
                     {choice.image ? (
-                      <img
-                        className="m-0"
-                        src={choice.image}
-                        alt={choice.title}
-                      />
+                      <div className="relative w-full pb-[100%]">
+                        <img
+                          className="absolute left-0 top-0 h-full w-full object-cover"
+                          src={choice.image}
+                          alt={choice.title}
+                        />
+                      </div>
                     ) : (
                       choice.title
                     )}
@@ -134,11 +136,13 @@ const CustomizePopUp: React.FC = () => {
                         }}
                       >
                         {choice.image ? (
-                          <img
-                            className="m-0"
-                            src={choice.image}
-                            alt={choice.title}
-                          />
+                          <div className="relative w-full pb-[100%]">
+                            <img
+                              className="absolute left-0 top-0 h-full w-full object-cover"
+                              src={choice.image}
+                              alt={choice.title}
+                            />
+                          </div>
                         ) : (
                           choice.title
                         )}
@@ -182,11 +186,13 @@ const CustomizePopUp: React.FC = () => {
                         }}
                       >
                         {choice.image ? (
-                          <img
-                            className="m-0"
-                            src={choice.image}
-                            alt={choice.title}
-                          />
+                          <div className="relative w-full pb-[100%]">
+                            <img
+                              className="absolute left-0 top-0 h-full w-full object-cover"
+                              src={choice.image}
+                              alt={choice.title}
+                            />
+                          </div>
                         ) : (
                           choice.title
                         )}
@@ -310,7 +316,6 @@ const PopUpInfos: Record<string, PopUpInfo> = {
           choices: [
             {
               key: "default",
-              title: "Default",
               image: "images/wallpaper/bto-ceiling-texture.webp",
               productKey: "default",
             },
@@ -323,7 +328,6 @@ const PopUpInfos: Record<string, PopUpInfo> = {
             {
               key: "marble",
               productKey: "marble",
-              title: "Marble",
               image: "images/wallpaper/marble-wall.webp",
             },
           ],
@@ -335,7 +339,6 @@ const PopUpInfos: Record<string, PopUpInfo> = {
             {
               key: "base-color",
               productKey: "base-color",
-              title: "Base Color",
               image: "images/wallpaper/bto-floorTile-BaseColor.webp",
             },
           ],
