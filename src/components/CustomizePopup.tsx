@@ -74,7 +74,7 @@ const CustomizePopUp: React.FC = () => {
                       clearCustomizeSelectedLevelKeys();
                       addCustomizeSelectedLevelKey(choice.key, 0);
 
-                      setStep(Math.max(1, step));
+                      setStep(1);
                     }}
                   >
                     {choice.image ? (
@@ -201,7 +201,7 @@ const CustomizePopUp: React.FC = () => {
               </div>
             </div>
           )}
-        {step >= popUpInfo.maxStep && (
+        {step >= popUpInfo.maxStep - 1 && (
           <Button
             onClick={() => {
               commitCustomizeSelected();
@@ -212,6 +212,7 @@ const CustomizePopUp: React.FC = () => {
               });
               handleClose();
             }}
+            disabled={customizeSelected.length < popUpInfo.maxStep}
           >
             {popUpInfo.buttonText ?? "Save"}
           </Button>
