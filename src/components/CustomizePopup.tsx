@@ -199,6 +199,28 @@ const CustomizePopUp: React.FC = () => {
                   },
                 )}
               </div>
+              {customizeSelected.length >= 1 &&
+                (customizeSelected[1].includes("hybrid") ? (
+                  <div className="flex flex-col gap-2">
+                    <Title order={3}>Tap</Title>
+                    <Text size="sm" c="dimmed">
+                      Our enhanced package reuses the BTO default tap,
+                      thoughtfully integrated into a stylish cabinet set. This
+                      approach not only enhances your bathroom's aesthetics but
+                      also reflects our commitment to sustainability.
+                    </Text>
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-2">
+                    <Title order={3}>Basin and Tap</Title>
+                    <Text size="sm" c="dimmed">
+                      Our enhanced package reuses the BTO default basin and tap,
+                      thoughtfully integrated into a stylish cabinet set. This
+                      approach not only enhances your bathroom's aesthetics but
+                      also reflects our commitment to sustainability.
+                    </Text>
+                  </div>
+                ))}
             </div>
           )}
         {step >= popUpInfo.maxStep - 1 && (
