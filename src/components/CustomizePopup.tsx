@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import clsx from "clsx";
 import useStore from "../store/useStore";
-import { Button, Modal, Title } from "@mantine/core";
+import { Button, Modal, Text, Title } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 
 const CustomizePopUp: React.FC = () => {
@@ -38,6 +38,7 @@ const CustomizePopUp: React.FC = () => {
   const handleClose = () => {
     setModal("customize", false);
     clearCustomizeSelected();
+    setStep(0);
   };
 
   return (
@@ -47,7 +48,7 @@ const CustomizePopUp: React.FC = () => {
       title={<p className="text-3xl font-bold">{popUpInfo.title}</p>}
       centered
       classNames={{
-        content: "sm:left-4 sm:absolute sm:w-[400px]",
+        content: "sm:left-4 sm:absolute sm:w-[600px]",
       }}
     >
       <div className="flex flex-col gap-8">
@@ -107,11 +108,14 @@ const CustomizePopUp: React.FC = () => {
                     return (
                       <button
                         key={choice.key}
-                        className={clsx("rounded-md border-4", {
-                          "border-brand": selected,
-                          "border-transparent hover:border-gray-300": !selected,
-                          "h-24 w-24": choice.image,
-                        })}
+                        className={clsx(
+                          "flex h-full w-full flex-col items-center justify-between rounded-md border-4 p-2",
+                          {
+                            "border-brand": selected,
+                            "border-transparent hover:border-gray-300":
+                              !selected,
+                          },
+                        )}
                         onClick={() => {
                           addCustomizeSelected(choice.productKey, 1);
 
@@ -131,13 +135,17 @@ const CustomizePopUp: React.FC = () => {
                       >
                         {choice.image ? (
                           <img
-                            className="m-0 h-full w-full"
+                            className="m-0"
                             src={choice.image}
                             alt={choice.title}
                           />
                         ) : (
                           choice.title
                         )}
+                        <Text size="sm">{choice.title}</Text>
+                        <Text size="xs" c="dimmed">
+                          {choice.subtitle}
+                        </Text>
                       </button>
                     );
                   },
@@ -159,11 +167,15 @@ const CustomizePopUp: React.FC = () => {
                     return (
                       <button
                         key={choice.key}
-                        className={clsx("rounded-md border-4 p-2", {
-                          "border-brand": selected,
-                          "border-transparent hover:border-gray-300": !selected,
-                          "h-24 w-24": choice.image,
-                        })}
+                        className={clsx(
+                          "flex h-full w-full flex-col items-center justify-between rounded-md border-4 p-2",
+                          {
+                            "border-brand": selected,
+                            "border-transparent hover:border-gray-300":
+                              !selected,
+                            "h-24 w-24": choice.image,
+                          },
+                        )}
                         onClick={() => {
                           addCustomizeSelected(choice.productKey, 2);
                           setStep(Math.max(3, step));
@@ -171,13 +183,17 @@ const CustomizePopUp: React.FC = () => {
                       >
                         {choice.image ? (
                           <img
-                            className="m-0 h-full w-full"
+                            className="m-0"
                             src={choice.image}
                             alt={choice.title}
                           />
                         ) : (
                           choice.title
                         )}
+                        <Text size="sm">{choice.title}</Text>
+                        <Text size="xs" c="dimmed">
+                          {choice.subtitle}
+                        </Text>
                       </button>
                     );
                   },
@@ -195,7 +211,6 @@ const CustomizePopUp: React.FC = () => {
                 position: "top-center",
               });
               handleClose();
-              setStep(0);
             }}
           >
             {popUpInfo.buttonText ?? "Save"}
@@ -204,6 +219,37 @@ const CustomizePopUp: React.FC = () => {
       </div>
     </Modal>
   );
+};
+
+const vanityCabinetDimensionsText = {
+  "600": "W:596 x H:450 x D:455 mm",
+  "800": "W:796 x H:450 x D:455 mm",
+};
+
+const vanityCabinetHybridDimensionsText = {
+  "500": "W:500 x H:455 x D:386 mm",
+  "600": "W:600 x H:455 x D:386 mm",
+  "800": "W:800 x H:455 x D:386 mm",
+};
+
+const countertopDimensionsText = {
+  "600": "W:615 x H:10 x D:465 mm",
+  "800": "W:815 x H:10 x D:465 mm",
+};
+
+const insertBasinDimensionsText = {
+  "500": {
+    ceramic: " W:510 x H:164 x D:395 mm",
+    glass: "W:515 x H:150 x D:400 mm",
+  },
+  "600": {
+    ceramic: "W:610 x H:164 x D:395 mm",
+    glass: "W:615 x H:150 x D:400 mm",
+  },
+  "800": {
+    ceramic: "W:810 x H:164 x D:395 mm",
+    glass: "W:815 x H:150 x D:400 mm",
+  },
 };
 
 const PopUpInfos: Record<string, PopUpInfo> = {
@@ -303,16 +349,22 @@ const PopUpInfos: Record<string, PopUpInfo> = {
         choices: [
           {
             key: "vanity-cabinet-hybrid-pebble-500mm",
+            title: "Hybrid Pebble",
+            subtitle: vanityCabinetHybridDimensionsText["500"],
             productKey: "hybrid-pebble",
             image: "images/vanity-cabinet/hybrid-pebble-500mm.webp",
           },
           {
             key: "vanity-cabinet-hybrid-pine-500mm",
+            title: "Hybrid Pine",
+            subtitle: vanityCabinetHybridDimensionsText["500"],
             productKey: "hybrid-pine",
             image: "images/vanity-cabinet/hybrid-pine-500mm.webp",
           },
           {
             key: "vanity-cabinet-hybrid-walnut-500mm",
+            title: "Hybrid Walnut",
+            subtitle: vanityCabinetHybridDimensionsText["500"],
             productKey: "hybrid-walnut",
             image: "images/vanity-cabinet/hybrid-walnut-500mm.webp",
           },
@@ -327,48 +379,56 @@ const PopUpInfos: Record<string, PopUpInfo> = {
             key: "vanity-birch-600mm",
             productKey: "birch",
             title: "Birch",
+            subtitle: vanityCabinetDimensionsText["600"],
             image: "images/vanity-cabinet/birch-600mm.webp",
           },
           {
             key: "vanity-blanco-600mm",
             productKey: "blanco",
             title: "Blanco",
+            subtitle: vanityCabinetDimensionsText["600"],
             image: "images/vanity-cabinet/blanco-600mm.webp",
           },
           {
             key: "vanity-brownstone-600mm",
             productKey: "brown-stone",
             title: "Brownstone",
+            subtitle: vanityCabinetDimensionsText["600"],
             image: "images/vanity-cabinet/brownstone-600mm.webp",
           },
           {
             key: "vanity-charcoal-ash-600mm",
             productKey: "charcoal-ash",
-            title: "Charcoal",
+            title: "Charcoal Ash",
+            subtitle: vanityCabinetDimensionsText["600"],
             image: "images/vanity-cabinet/charcoal-ash-600mm.webp",
           },
           {
             key: "vanity-graphite-600mm",
             productKey: "graphite",
             title: "Graphite",
+            subtitle: vanityCabinetDimensionsText["600"],
             image: "images/vanity-cabinet/graphite-600mm.webp",
           },
           {
             key: "vanity-matt-black-600mm",
             productKey: "matt-black",
             title: "Matt Black",
+            subtitle: vanityCabinetDimensionsText["600"],
             image: "images/vanity-cabinet/matt-black-600mm.webp",
           },
           {
             key: "vanity-oakwood-600mm",
             productKey: "oakwood",
             title: "Oakwood",
+            subtitle: vanityCabinetDimensionsText["600"],
             image: "images/vanity-cabinet/oakwood-600mm.webp",
           },
           {
             key: "vanity-hybrid-pebble-600mm",
             productKey: "hybrid-pebble",
             title: "Hybrid Pebble",
+            subtitle: vanityCabinetHybridDimensionsText["600"],
             image: "images/vanity-cabinet/hybrid-pebble-600mm.webp",
             nextLevelKey: "600-hybrid",
           },
@@ -376,6 +436,7 @@ const PopUpInfos: Record<string, PopUpInfo> = {
             key: "vanity-hybrid-pine-600mm",
             productKey: "hybrid-pine",
             title: "Hybrid Pine",
+            subtitle: vanityCabinetHybridDimensionsText["600"],
             image: "images/vanity-cabinet/hybrid-pine-600mm.webp",
             nextLevelKey: "600-hybrid",
           },
@@ -383,6 +444,7 @@ const PopUpInfos: Record<string, PopUpInfo> = {
             key: "vanity-hybrid-walnut-600mm",
             productKey: "hybrid-walnut",
             title: "Hybrid Walnut",
+            subtitle: vanityCabinetHybridDimensionsText["600"],
             image: "images/vanity-cabinet/hybrid-walnut-600mm.webp",
             nextLevelKey: "600-hybrid",
           },
@@ -397,48 +459,56 @@ const PopUpInfos: Record<string, PopUpInfo> = {
             key: "vanity-birch-800mm",
             productKey: "birch",
             title: "Birch",
+            subtitle: vanityCabinetDimensionsText["800"],
             image: "images/vanity-cabinet/birch-800mm.webp",
           },
           {
             key: "vanity-blanco-800mm",
             productKey: "blanco",
             title: "Blanco",
+            subtitle: vanityCabinetDimensionsText["800"],
             image: "images/vanity-cabinet/blanco-800mm.webp",
           },
           {
             key: "vanity-brownstone-800mm",
             productKey: "brown-stone",
             title: "Brownstone",
+            subtitle: vanityCabinetDimensionsText["800"],
             image: "images/vanity-cabinet/brownstone-800mm.webp",
           },
           {
             key: "vanity-charcoal-ash-800mm",
             productKey: "charcoal-ash",
             title: "Charcoal",
+            subtitle: vanityCabinetDimensionsText["800"],
             image: "images/vanity-cabinet/charcoal-ash-800mm.webp",
           },
           {
             key: "vanity-graphite-800mm",
             productKey: "graphite",
             title: "Graphite",
+            subtitle: vanityCabinetDimensionsText["800"],
             image: "images/vanity-cabinet/graphite-800mm.webp",
           },
           {
             key: "vanity-matt-black-800mm",
             productKey: "matt-black",
             title: "Matt Black",
+            subtitle: vanityCabinetDimensionsText["800"],
             image: "images/vanity-cabinet/matt-black-800mm.webp",
           },
           {
             key: "vanity-oakwood-800mm",
             productKey: "oakwood",
             title: "Oakwood",
+            subtitle: vanityCabinetDimensionsText["800"],
             image: "images/vanity-cabinet/oakwood-800mm.webp",
           },
           {
             key: "vanity-hybrid-pebble-800mm",
             productKey: "hybrid-pebble",
             title: "Hybrid Pebble",
+            subtitle: vanityCabinetHybridDimensionsText["800"],
             image: "images/vanity-cabinet/hybrid-pebble-800mm.webp",
             nextLevelKey: "800-hybrid",
           },
@@ -446,6 +516,7 @@ const PopUpInfos: Record<string, PopUpInfo> = {
             key: "vanity-hybrid-pine-800mm",
             productKey: "hybrid-pine",
             title: "Hybrid Pine",
+            subtitle: vanityCabinetHybridDimensionsText["800"],
             image: "images/vanity-cabinet/hybrid-pine-800mm.webp",
             nextLevelKey: "800-hybrid",
           },
@@ -453,6 +524,7 @@ const PopUpInfos: Record<string, PopUpInfo> = {
             key: "vanity-hybrid-walnut-800mm",
             productKey: "hybrid-walnut",
             title: "Hybrid Walnut",
+            subtitle: vanityCabinetHybridDimensionsText["800"],
             image: "images/vanity-cabinet/hybrid-walnut-800mm.webp",
             nextLevelKey: "800-hybrid",
           },
@@ -467,19 +539,22 @@ const PopUpInfos: Record<string, PopUpInfo> = {
           {
             key: "insert-basin-ceramic-500mm",
             productKey: "insert-basin-ceramic",
-            title: "Ceramic Helios",
+            title: "White Ceramic Insert Basin",
+            subtitle: insertBasinDimensionsText["500"].ceramic,
             image: "images/insert-basin/ceramic-helios.webp",
           },
           {
             key: "insert-basin-glass-black-500mm",
             productKey: "insert-basin-glass-black",
-            title: "Glass Black",
+            title: "Black Glass Insert Basin",
+            subtitle: insertBasinDimensionsText["500"].glass,
             image: "images/insert-basin/glass-black.webp",
           },
           {
             key: "insert-basin-glass-white-500mm",
             productKey: "insert-basin-glass-white",
-            title: "Glass White",
+            title: "White Glass Insert Basin",
+            subtitle: insertBasinDimensionsText["500"].glass,
             image: "images/insert-basin/glass-white.webp",
           },
         ],
@@ -491,13 +566,15 @@ const PopUpInfos: Record<string, PopUpInfo> = {
           {
             key: "counter-top-black-600mm",
             productKey: "counter-top-black",
-            title: "Black",
+            title: "Black Quartz Countertop",
+            subtitle: countertopDimensionsText["600"],
             image: "images/counter-top/countertop-black.webp",
           },
           {
             key: "counter-top-white-600mm",
             productKey: "counter-top-white",
-            title: "White",
+            title: "White Quartz Countertop",
+            subtitle: countertopDimensionsText["600"],
             image: "images/counter-top/countertop-white.webp",
           },
         ],
@@ -509,19 +586,22 @@ const PopUpInfos: Record<string, PopUpInfo> = {
           {
             key: "insert-basin-ceramic-600mm",
             productKey: "insert-basin-ceramic",
-            title: "Ceramic Helios",
+            title: "White Ceramic Insert Basin",
+            subtitle: insertBasinDimensionsText["600"].ceramic,
             image: "images/insert-basin/ceramic-helios.webp",
           },
           {
             key: "insert-basin-glass-black-600mm",
             productKey: "insert-basin-glass-black",
-            title: "Glass Black",
+            title: "Black Glass Insert Basin",
+            subtitle: insertBasinDimensionsText["600"].glass,
             image: "images/insert-basin/glass-black.webp",
           },
           {
             key: "insert-basin-glass-white-600mm",
             productKey: "insert-basin-glass-white",
-            title: "Glass White",
+            title: "White Glass Insert Basin",
+            subtitle: insertBasinDimensionsText["600"].glass,
             image: "images/insert-basin/glass-white.webp",
           },
         ],
@@ -533,13 +613,15 @@ const PopUpInfos: Record<string, PopUpInfo> = {
           {
             key: "counter-top-black-800mm",
             productKey: "counter-top-black",
-            title: "Black",
+            title: "Black Quartz Countertop",
+            subtitle: countertopDimensionsText["800"],
             image: "images/counter-top/countertop-black.webp",
           },
           {
             key: "counter-top-white-800mm",
             productKey: "counter-top-white",
-            title: "White",
+            title: "White Quartz Countertop",
+            subtitle: countertopDimensionsText["800"],
             image: "images/counter-top/countertop-white.webp",
           },
         ],
@@ -551,19 +633,22 @@ const PopUpInfos: Record<string, PopUpInfo> = {
           {
             key: "insert-basin-ceramic-800mm",
             productKey: "insert-basin-ceramic",
-            title: "Ceramic Helios",
+            title: "White Ceramic Insert Basin",
+            subtitle: insertBasinDimensionsText["800"].ceramic,
             image: "images/insert-basin/ceramic-helios.webp",
           },
           {
             key: "insert-basin-glass-black-800mm",
             productKey: "insert-basin-glass-black",
-            title: "Glass Black",
+            title: "Black Glass Insert Basin",
+            subtitle: insertBasinDimensionsText["800"].glass,
             image: "images/insert-basin/glass-black.webp",
           },
           {
             key: "insert-basin-glass-white-800mm",
             productKey: "insert-basin-glass-white",
-            title: "Glass White",
+            title: "White Glass Insert Basin",
+            subtitle: insertBasinDimensionsText["800"].glass,
             image: "images/insert-basin/glass-white.webp",
           },
         ],
@@ -601,6 +686,7 @@ type ProductChoice = {
   productKey: string; // for constructing product
   nextLevelKey?: string; // to determine the next level (choice-level)
   title?: string;
+  subtitle?: string;
   image?: string;
 };
 
