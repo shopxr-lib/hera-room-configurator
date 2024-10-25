@@ -11,6 +11,7 @@ import PackageChooserFloating from "./components/PackageChooserFloating";
 import ShoppingCartFloating from "./components/ShoppingCartFloating";
 import { Notifications } from "@mantine/notifications";
 import ShoppingCartDrawer from "./components/ShoppingCartDrawer";
+import Branding from "./components/Branding";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
       <PackageChooserFloating />
       <ShoppingCartFloating />
       <ShoppingCartDrawer />
+      <Branding />
     </MantineProvider>
   );
 }

@@ -11,7 +11,7 @@ const Customize: React.FC<Props> = () => {
   const selectedPackage = useStore((state) => state.package);
 
   return (
-    <div className="fixed bottom-4 flex items-center space-x-2 rounded-md bg-white p-2 sm:left-4">
+    <div className="fixed bottom-12 flex items-center space-x-2 rounded-md bg-white p-2 sm:bottom-4 sm:left-4">
       {productIcons
         .filter((productIcon) =>
           isPackageTierSufficient(productIcon.minPackageTier, selectedPackage),
