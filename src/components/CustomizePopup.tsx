@@ -179,7 +179,6 @@ const CustomizePopUp: React.FC = () => {
                             "border-brand": selected,
                             "border-transparent hover:border-gray-300":
                               !selected,
-                            "h-24 w-24": choice.image,
                           },
                         )}
                         onClick={() => {
