@@ -58,15 +58,17 @@ const CustomizePopUp: React.FC = () => {
             <Title order={3}>{l1.title}</Title>
             <div className="grid grid-cols-3 gap-4">
               {l1.choices.map((choice) => {
-                const isSelected = customizeSelected[0] === choice.key;
+                const selected = customizeSelected[0] === choice.key;
                 return (
                   <button
                     key={choice.key}
-                    className={clsx("rounded-md border-4 p-1", {
-                      "border-brand": isSelected,
-                      "border-transparent hover:border-gray-100": !isSelected,
-                      "h-24 w-24": choice.image,
-                    })}
+                    className={clsx(
+                      "flex h-fit min-h-fit flex-col items-center justify-between rounded-md border-4 p-2",
+                      {
+                        "border-brand": selected,
+                        "border-transparent hover:border-gray-300": !selected,
+                      },
+                    )}
                     onClick={() => {
                       clearCustomizeSelected();
                       addCustomizeSelected(choice.key, 0);
@@ -111,7 +113,7 @@ const CustomizePopUp: React.FC = () => {
                       <button
                         key={choice.key}
                         className={clsx(
-                          "flex h-full w-full flex-col items-center justify-between rounded-md border-4 p-2",
+                          "flex h-fit min-h-fit flex-col items-center justify-between rounded-md border-4 p-2",
                           {
                             "border-brand": selected,
                             "border-transparent hover:border-gray-300":
@@ -174,7 +176,7 @@ const CustomizePopUp: React.FC = () => {
                       <button
                         key={choice.key}
                         className={clsx(
-                          "flex h-full w-full flex-col items-center justify-between rounded-md border-4 p-2",
+                          "flex h-fit min-h-fit flex-col items-center justify-between rounded-md border-4 p-2",
                           {
                             "border-brand": selected,
                             "border-transparent hover:border-gray-300":
