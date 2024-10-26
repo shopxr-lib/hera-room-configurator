@@ -490,7 +490,7 @@ const PopUpInfos: Record<string, PopUpInfo> = {
         "800": {
           nextLevelKey: "800-normal",
           parent: "800",
-          title: "Vanity Cabinet Color",
+          title: "Cabinet",
           choices: [
             {
               key: "vanity-birch-800mm",
