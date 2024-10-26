@@ -146,10 +146,12 @@ const CustomizePopUp: React.FC = () => {
                         ) : (
                           choice.title
                         )}
-                        <Text size="sm">{choice.title}</Text>
-                        <Text size="xs" c="dimmed">
-                          {choice.subtitle}
-                        </Text>
+                        {choice.title && <Text size="sm">{choice.title}</Text>}
+                        {choice.subtitle && (
+                          <Text size="xs" c="dimmed">
+                            {choice.subtitle}
+                          </Text>
+                        )}
                       </button>
                     );
                   },
@@ -196,10 +198,12 @@ const CustomizePopUp: React.FC = () => {
                         ) : (
                           choice.title
                         )}
-                        <Text size="sm">{choice.title}</Text>
-                        <Text size="xs" c="dimmed">
-                          {choice.subtitle}
-                        </Text>
+                        {choice.title && <Text size="sm">{choice.title}</Text>}
+                        {choice.subtitle && (
+                          <Text size="xs" c="dimmed">
+                            {choice.subtitle}
+                          </Text>
+                        )}
                       </button>
                     );
                   },
