@@ -78,13 +78,7 @@ const CustomizePopUp: React.FC = () => {
                     }}
                   >
                     {choice.image ? (
-                      <div className="relative w-full pb-[100%]">
-                        <img
-                          className="absolute left-0 top-0 h-full w-full object-cover"
-                          src={choice.image}
-                          alt={choice.title}
-                        />
-                      </div>
+                      <img src={choice.image} alt={choice.title} />
                     ) : (
                       choice.title
                     )}
@@ -136,13 +130,7 @@ const CustomizePopUp: React.FC = () => {
                         }}
                       >
                         {choice.image ? (
-                          <div className="relative w-full pb-[100%]">
-                            <img
-                              className="absolute left-0 top-0 h-full w-full object-cover"
-                              src={choice.image}
-                              alt={choice.title}
-                            />
-                          </div>
+                          <img src={choice.image} alt={choice.title} />
                         ) : (
                           choice.title
                         )}
@@ -187,13 +175,7 @@ const CustomizePopUp: React.FC = () => {
                         }}
                       >
                         {choice.image ? (
-                          <div className="relative w-full pb-[100%]">
-                            <img
-                              className="absolute left-0 top-0 h-full w-full object-cover"
-                              src={choice.image}
-                              alt={choice.title}
-                            />
-                          </div>
+                          <img src={choice.image} alt={choice.title} />
                         ) : (
                           choice.title
                         )}
@@ -331,7 +313,7 @@ const PopUpInfos: Record<string, PopUpInfo> = {
             {
               key: "marble",
               productKey: "marble",
-              image: "images/wallpaper/marble-wall.webp",
+              image: "images/wallpaper/marble-wall.jpeg",
             },
           ],
         },
