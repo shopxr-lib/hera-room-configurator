@@ -360,6 +360,7 @@ export const allFurnitures: Omit<Furniture, "dimensions" | "position">[] = [
     variant: {
       isHybrid: true,
     },
+    textureMap: {},
     minPackageTier: "enhanced",
     price: 0,
   },
@@ -372,6 +373,7 @@ export const allFurnitures: Omit<Furniture, "dimensions" | "position">[] = [
     variant: {
       isHybrid: true,
     },
+    textureMap: {},
     minPackageTier: "enhanced",
     price: 0,
   },
@@ -384,6 +386,7 @@ export const allFurnitures: Omit<Furniture, "dimensions" | "position">[] = [
     variant: {
       isHybrid: true,
     },
+    textureMap: {},
     minPackageTier: "enhanced",
     price: 0,
   },
@@ -396,6 +399,7 @@ export const allFurnitures: Omit<Furniture, "dimensions" | "position">[] = [
     variant: {
       isHybrid: true,
     },
+    textureMap: {},
     minPackageTier: "enhanced",
     price: 0,
   },
@@ -408,6 +412,7 @@ export const allFurnitures: Omit<Furniture, "dimensions" | "position">[] = [
     variant: {
       isHybrid: true,
     },
+    textureMap: {},
     minPackageTier: "enhanced",
     price: 0,
   },
@@ -420,6 +425,7 @@ export const allFurnitures: Omit<Furniture, "dimensions" | "position">[] = [
     variant: {
       isHybrid: true,
     },
+    textureMap: {},
     minPackageTier: "enhanced",
     price: 0,
   },
@@ -433,6 +439,7 @@ export const allFurnitures: Omit<Furniture, "dimensions" | "position">[] = [
     variant: {
       isHybrid: true,
     },
+    textureMap: {},
     minPackageTier: "enhanced",
     price: 0,
   },
@@ -445,6 +452,7 @@ export const allFurnitures: Omit<Furniture, "dimensions" | "position">[] = [
     variant: {
       isHybrid: true,
     },
+    textureMap: {},
     minPackageTier: "enhanced",
     price: 0,
   },
@@ -457,6 +465,7 @@ export const allFurnitures: Omit<Furniture, "dimensions" | "position">[] = [
     variant: {
       isHybrid: true,
     },
+    textureMap: {},
     minPackageTier: "enhanced",
     price: 0,
   },
