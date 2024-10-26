@@ -53,18 +53,18 @@ const productIcons = [
     label: "Vanity Cabinet",
     minPackageTier: "enhanced",
   },
-  {
-    key: "showerscreen",
-    src: "images/icons/shower-screen-icon.png",
-    label: "Shower Screen",
-    minPackageTier: "enhanced",
-  },
-  {
-    key: "toiletbowl",
-    src: "images/icons/toiletbowl-icon.png",
-    label: "Toiletbowl",
-    minPackageTier: "enhanced",
-  },
+  // {
+  //   key: "showerscreen",
+  //   src: "images/icons/shower-screen-icon.png",
+  //   label: "Shower Screen",
+  //   minPackageTier: "enhanced",
+  // },
+  // {
+  //   key: "toiletbowl",
+  //   src: "images/icons/toiletbowl-icon.png",
+  //   label: "Toiletbowl",
+  //   minPackageTier: "enhanced",
+  // },
 ];
 
 export default Customize;
