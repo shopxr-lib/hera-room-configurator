@@ -103,9 +103,16 @@ export const allFloorsTextures: TextureObject[] = [
       metallicMap: "images/wallpaper/bto-floorTile-Metallic.webp",
       aoMap: "images/wallpaper/bto-floorTile-AmbientOcclusion.webp",
       displacementMap: "images/wallpaper/bto-floorTile-Displacement.webp",
-      baseMap: "images/wallpaper/bto-floorTile-BaseColor.webp",
+      map: "images/wallpaper/bto-floorTile-BaseColor.webp",
     },
-    baseColor: "#30312f",
+  },
+  {
+    key: "white-stone",
+    name: "White Stone",
+    maps: {
+      map: "images/wallpaper/floor-whitestone.jpg",
+    },
+    baseColor: "#c9c0b9",
   },
 ];
 
@@ -114,6 +121,11 @@ export const allWallTextures = [
     key: "marble",
     name: "Marble",
     path: "images/wallpaper/marble-wall.webp",
+  },
+  {
+    key: "stuco-plaster",
+    name: "Stuco Plaster",
+    path: "images/wallpaper/stuco-plaster-wall.jpg",
   },
 ];
 

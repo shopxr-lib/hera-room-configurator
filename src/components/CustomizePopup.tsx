@@ -335,6 +335,11 @@ const PopUpInfos: Record<string, PopUpInfo> = {
               productKey: "marble",
               image: "images/wallpaper/marble-wall.webp",
             },
+            {
+              key: "stuco-plaster",
+              productKey: "stuco-plaster",
+              image: "images/wallpaper/stuco-plaster-wall.jpg",
+            },
           ],
         },
         floor: {
@@ -345,6 +350,11 @@ const PopUpInfos: Record<string, PopUpInfo> = {
               key: "base-color",
               productKey: "base-color",
               image: "images/wallpaper/bto-floorTile-BaseColor.webp",
+            },
+            {
+              key: "white-stone",
+              productKey: "white-stone",
+              image: "images/wallpaper/floor-whitestone.jpg",
             },
           ],
         },

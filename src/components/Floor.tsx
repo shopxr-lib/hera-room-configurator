@@ -13,6 +13,7 @@ const Floor: React.FC = () => {
     <mesh position={[0, 0, WALL_THICKNESS / 2]} rotation={[-Math.PI / 2, 0, 0]}>
       <planeGeometry args={[roomDimension.depth, roomDimension.length]} />
       <meshStandardMaterial
+        key={floorTexture.key} // force re-render when texture changes
         {...texture}
         displacementScale={0.02}
         color={floorTexture.baseColor}
